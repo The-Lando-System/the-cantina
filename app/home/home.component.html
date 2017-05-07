@@ -10,23 +10,20 @@
   
   <!-- Chart -->
   <div class="container">
-    <div class="row">
-      <h3>Garbanso</h3>
-    </div>
-    <div class="row">
-      <audio controls>
-        <source src="http://localhost:8090/songs/590e55557a5d9216345f1066" type="audio/mpeg">
-      Your browser does not support the audio element.
-      </audio>
-    </div>
-    <div class="row">
-      <h3>Smittywerbenjagermanjensen</h3>
-    </div>
-    <div class="row">
-      <audio controls>
-        <source src="http://localhost:8090/songs/590e557b7a5d9216345f10b2" type="audio/mpeg">
-      Your browser does not support the audio element.
-      </audio>
+    <div *ngFor="let song of songs">
+    
+      <div class="row">
+        <h3>{{song.name}}</h3>
+      </div>
+
+      <div class="row">
+        <audio controls>
+          <source [src]="cantinaSvcUrl + '/' + song.id" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
     </div>
   </div>
+
 </div>
