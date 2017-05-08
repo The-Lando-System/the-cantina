@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService, User, Broadcaster } from 'sarlacc-angular-client';
+import { RequestOptions, Http } from '@angular/http';
 
 import { SongService } from '../song/song.service';
 import { Song } from '../song/song';
@@ -18,6 +19,9 @@ export class HomeComponent implements OnInit {
   user: User;
   songs: Song[];
   cantinaSvcUrl: string;
+  songToUpload: string;
+  newSong: Song = new Song;
+  songFile: File;
 
   private homeLoading = false;
 
@@ -25,7 +29,8 @@ export class HomeComponent implements OnInit {
     private userSvc: UserService,
     private broadcaster: Broadcaster,
     private songSvc: SongService,
-    private globals: Globals
+    private globals: Globals,
+    private http: Http
   ){}
 
   ngOnInit(): void {
@@ -74,5 +79,38 @@ export class HomeComponent implements OnInit {
       this.songs = songs;
     }).catch((res:any) => {});
   }
+
+  uploadNewSong() {
+    console.log(this.songFile);
+
+    this.http.post('http://localhost:8090/songs/' + this.newSong.name, this.songFile)
+    .toPromise()
+    .then((res:any) => {
+      console.log(res);
+    }).catch((err:any) => {
+      console.log(err);
+    })
+
+  }
+
+  selectSongToUpload(event:any) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+      this.songFile = fileList[0];
+      this.songToUpload = this.songFile.name;
+      this.newSong.name = this.songFile.name;
+
+      // let formData:FormData = new FormData();
+      // formData.append('uploadFile', file, file.name);
+
+      // console.log(formData);
+
+      // let headers = new Headers();
+      // headers.append('Content-Type', 'multipart/form-data');
+      // headers.append('Accept', 'application/json');
+
+    }
+  }
+
 
 }

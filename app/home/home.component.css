@@ -2,10 +2,37 @@
   margin:30px;
 }
 
-.card {
-  -webkit-box-shadow: 0 10px 6px -6px #777;
-  -moz-box-shadow: 0 10px 6px -6px #777;
-  box-shadow: 0 10px 6px -6px #777;
-  border: solid #CCCCCC 1px;
-  border-radius: 1px;
+#load-song-input {
+  width: 100%;
+  height: 300px;
+  background-image: url('resources/images/song-upload-text.png');
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: center;
+  background-size: 50%;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 10px dashed #4284ff;
+}
+
+#load-song-input input {
+  display: block !important;
+  width: 100% !important;
+  height: 300px !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+}
+
+#load-song-input input:hover {
+  display: block !important;
+  width: 100% !important;
+  height: 300px !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  cursor: pointer;
+}
+
+#upload-button {
+  margin-top: 20px;
 }
