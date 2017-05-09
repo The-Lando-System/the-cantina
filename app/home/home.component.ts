@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   user: User;
   songs: Song[];
-  cantinaSvcUrl: string;
+  cantinaSvcUrl: string = this.globals.svc_domain + '/songs/';
   songToUpload: string;
   newSong: Song = new Song;
   songFile: File;
@@ -35,17 +35,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.homeLoading = true;
+    
     this.userSvc.returnUser()
     .then((user:User) => {
       this.user = user;
-
-      this.cantinaSvcUrl = this.globals.svc_domain + '/songs/';
       this.getSongs();
-
-      this.homeLoading = false;
     }).catch((res:any) => {
-      console.log('User is not logged in');
-      this.homeLoading = false;
+      this.getSongs();
     });
 
     this.listenForLogin();
@@ -77,20 +73,21 @@ export class HomeComponent implements OnInit {
     this.songSvc.getSongs()
     .then((songs:Song[]) => {
       this.songs = songs;
-    }).catch((res:any) => {});
+      this.homeLoading = false;
+    }).catch((res:any) => {
+      this.homeLoading = false;
+    });
   }
 
   uploadNewSong() {
-    console.log(this.songFile);
-
-    this.http.post('http://localhost:8090/songs/' + this.newSong.name, this.songFile)
-    .toPromise()
-    .then((res:any) => {
-      console.log(res);
+    this.homeLoading = true;
+    this.songSvc.createSong(this.songFile,this.newSong.name)
+    .then((createdSong:Song) => {
+      this.songs.push(createdSong);
+      this.homeLoading = false;
     }).catch((err:any) => {
-      console.log(err);
-    })
-
+      this.homeLoading = false;
+    });
   }
 
   selectSongToUpload(event:any) {
@@ -99,18 +96,26 @@ export class HomeComponent implements OnInit {
       this.songFile = fileList[0];
       this.songToUpload = this.songFile.name;
       this.newSong.name = this.songFile.name;
-
-      // let formData:FormData = new FormData();
-      // formData.append('uploadFile', file, file.name);
-
-      // console.log(formData);
-
-      // let headers = new Headers();
-      // headers.append('Content-Type', 'multipart/form-data');
-      // headers.append('Accept', 'application/json');
-
     }
   }
 
+  deleteSong(song:Song) {
+    event.preventDefault();
+    console.log(song);
+
+    this.songSvc.deleteSong(song.id)
+    .then((res:any) => {
+      this.removeSongFromSongs(song.id);
+    }).catch((err:any) => {});
+
+  }
+
+  private removeSongFromSongs(songId:string){
+    for(var i=0; i<this.songs.length; i++){
+      if (this.songs[i].id === songId){
+        this.songs.splice(i,1);
+      }
+    }
+  }
 
 }

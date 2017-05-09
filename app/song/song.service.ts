@@ -23,8 +23,35 @@ export class SongService {
     .toPromise()
     .then((res:any) => {
       return res.json();
-    }).catch((res:any) => {
+    }).catch((err:any) => {
+      console.log(err);
     });
   }
+
+  createSong(songFile:File,name:string): Promise<Song> {
+
+    let formData:FormData = new FormData();
+    formData.append('song', songFile);
+    let headers = new Headers({'Content-Type': 'multipart/form-data'});
+
+    return this.http.post(this.songUrl + name, formData, headers)
+    .toPromise()
+    .then((res:any) => {
+      return res.json();
+    }).catch((err:any) => {
+      console.log(err);
+    });
+  }
+
+  deleteSong(songId:string): Promise<void> {
+    return this.http.delete(this.songUrl + songId, {headers: this.userSvc.getAuthHeaders()})
+    .toPromise()
+    .then((res:any) => {
+      return res.json();
+    }).catch((err:any) => {
+      console.log(err);
+    });
+  }
+
 
 }

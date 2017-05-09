@@ -22,6 +22,10 @@
               <source [src]="cantinaSvcUrl + song.id" type="audio/wav">
               Your browser does not support the audio element.
             </audio>
+            <!-- Delete Song -->
+            <a href="#" class="btn btn-secondary btn-no-border" (click)="deleteSong(song)">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
       </div>
