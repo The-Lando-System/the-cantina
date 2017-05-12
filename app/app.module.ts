@@ -14,6 +14,8 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 
+import { LoadingBarComponent } from './common/loading-bar/loading-bar.component';
+
 import { Globals } from './globals';
 
 @NgModule({
@@ -37,7 +39,8 @@ import { Globals } from './globals';
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    LoadingBarComponent
   ],
   providers: [
     Logger,

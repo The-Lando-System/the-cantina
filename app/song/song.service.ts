@@ -19,7 +19,7 @@ export class SongService {
   private songUrl = this.globals.svc_domain + '/songs/';
 
   getSongs(): Promise<Song[]> {
-    return this.http.get(this.songUrl, {headers: this.userSvc.getAuthHeaders()})
+    return this.http.get(this.songUrl)
     .toPromise()
     .then((res:any) => {
       return res.json();
@@ -28,11 +28,23 @@ export class SongService {
     });
   }
 
+  getSongById(songId:string): Promise<Song> {
+    return this.http.get(this.songUrl + songId)
+    .toPromise()
+    .then((res:any) => {
+      return res.json();
+    }).catch((err:any) => {
+      console.log(err);
+    });
+  } 
+
   createSong(songFile:File,name:string): Promise<Song> {
 
     let formData:FormData = new FormData();
     formData.append('song', songFile);
-    let headers = new Headers({'Content-Type': 'multipart/form-data'});
+    
+    let headers = this.userSvc.getAuthHeaders();
+    headers.append('Content-Type','multipart/form-data');
 
     return this.http.post(this.songUrl + name, formData, headers)
     .toPromise()

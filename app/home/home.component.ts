@@ -7,6 +7,9 @@ import { Song } from '../song/song';
 
 import { Globals } from '../globals';
 
+declare var SockJS: any;
+declare var Stomp: any;
+
 @Component({
   moduleId: module.id,
   selector: 'home',
@@ -19,9 +22,13 @@ export class HomeComponent implements OnInit {
   user: User;
   songs: Song[];
   cantinaSvcUrl: string = this.globals.svc_domain + '/songs/';
+  websocketUrl: string = this.globals.svc_domain + '/websocket';
+  statusTopic: string = '/topic/song-status';
   songToUpload: string;
   newSong: Song = new Song;
   songFile: File;
+
+  stompClient: any;
 
   private homeLoading = false;
 
@@ -36,6 +43,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.homeLoading = true;
     
+    this.connect();
+    this.listenForLogin();
+    this.listenForLogout();
+    
     this.userSvc.returnUser()
     .then((user:User) => {
       this.user = user;
@@ -43,9 +54,33 @@ export class HomeComponent implements OnInit {
     }).catch((res:any) => {
       this.getSongs();
     });
+  }
 
-    this.listenForLogin();
-    this.listenForLogout();
+  connect(): void {
+    var socket = new SockJS(this.websocketUrl);
+    this.stompClient = Stomp.over(socket);
+    this.stompClient.connect({}, (frame:any) => {
+      console.log('Connected: ' + frame);
+      this.subscribe();
+    }, (err:any) => {
+      console.log(err);
+    });
+  }
+
+  subscribe():void {
+    this.stompClient.subscribe(this.statusTopic, (res:any) => {
+        let loadingStatus = JSON.parse(res.body);
+        this.updateStatus(loadingStatus.songId, loadingStatus.loading, loadingStatus.status);
+    });
+  }
+
+  updateStatus(songId:string,songIsLoading:boolean,status:string) {
+    for(var i=0; i<this.songs.length; i++){
+      if (this.songs[i].id === songId){
+        this.songs[i].status = status;
+        this.songs[i].loading = songIsLoading;
+      }
+    }
   }
 
   listenForLogin(): void {
@@ -74,19 +109,34 @@ export class HomeComponent implements OnInit {
     .then((songs:Song[]) => {
       this.songs = songs;
       this.homeLoading = false;
+
     }).catch((res:any) => {
       this.homeLoading = false;
     });
   }
 
   uploadNewSong() {
-    this.homeLoading = true;
-    this.songSvc.createSong(this.songFile,this.newSong.name)
+    
+    let song = new Song();
+
+    song.name = this.newSong.name;
+    song.id = '';
+    song.loading = true;
+    song.status = 'Uploading Song...';
+    this.songs.push(song);
+
+    this.songToUpload = "";
+    this.newSong.name = "";
+
+    this.songSvc.createSong(this.songFile,song.name)
     .then((createdSong:Song) => {
-      this.songs.push(createdSong);
-      this.homeLoading = false;
+      this.songSvc.getSongById(createdSong.id)
+      .then((song:Song) => {
+        this.removeSongFromSongs('');
+        this.songs.push(song);
+      }).catch((err:any) => {});
     }).catch((err:any) => {
-      this.homeLoading = false;
+      this.removeSongFromSongs('');
     });
   }
 
@@ -101,7 +151,10 @@ export class HomeComponent implements OnInit {
 
   deleteSong(song:Song) {
     event.preventDefault();
-    console.log(song);
+
+    if(!confirm("Are you sure you want to delete this song?")){
+      return;
+    }
 
     this.songSvc.deleteSong(song.id)
     .then((res:any) => {
