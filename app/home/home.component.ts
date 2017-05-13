@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   songFile: File;
 
   stompClient: any;
+  uuid: string;
 
   private homeLoading = false;
 
@@ -43,6 +44,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.homeLoading = true;
     
+    this.uuid = this.newGuid();
+
     this.connect();
     this.listenForLogin();
     this.listenForLogout();
@@ -70,13 +73,13 @@ export class HomeComponent implements OnInit {
   subscribe():void {
     this.stompClient.subscribe(this.statusTopic, (res:any) => {
         let loadingStatus = JSON.parse(res.body);
-        this.updateStatus(loadingStatus.songId, loadingStatus.loading, loadingStatus.status);
+        this.updateStatus(loadingStatus.songId, loadingStatus.clientId, loadingStatus.loading, loadingStatus.status);
     });
   }
 
-  updateStatus(songId:string,songIsLoading:boolean,status:string) {
+  updateStatus(songId:string,clientId:string,songIsLoading:boolean,status:string) {
     for(var i=0; i<this.songs.length; i++){
-      if (this.songs[i].id === songId){
+      if (this.songs[i].id === songId && this.uuid === clientId){
         this.songs[i].status = status;
         this.songs[i].loading = songIsLoading;
       }
@@ -170,5 +173,13 @@ export class HomeComponent implements OnInit {
       }
     }
   }
+
+  newGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+          return v.toString(16);
+      });
+  }
+
 
 }

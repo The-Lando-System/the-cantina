@@ -21,7 +21,7 @@
 
             <!-- Audio Component -->
             <audio controls [style.visibility]="song.loading ? 'hidden' : ''" >
-              <source [src]="cantinaSvcUrl + song.id + '/song-data'" type="audio/wav">
+              <source [src]="cantinaSvcUrl + song.id + '/song-data/' + uuid" type="audio/wav">
               Your browser does not support the audio element.
             </audio>
             <div *ngIf="song.loading" style="margin-left: -275px;">
