@@ -1,0 +1,12 @@
+<div class="row">
+    <h3>{{song.name}}</h3>
+</div>
+<div class="row">
+    <audio controls>
+        <source [src]="cantinaSvcUrl + song.id + '/song-data'" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    <a href="#" class="btn btn-secondary" style="margin-left: 10px;" (click)="deleteSong(song)">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+    </a>
+</div>

@@ -14,48 +14,14 @@
       <!-- Songs -->
       <div class="col-md-6">
         <div *ngFor="let song of songs">
-          <div class="row">
-            <h3>{{song.name}}</h3>
-          </div>
-          <div class="row">
-
-            <!-- Audio Component -->
-            <audio controls [style.visibility]="song.loading ? 'hidden' : ''" >
-              <source [src]="cantinaSvcUrl + song.id + '/song-data/' + uuid" type="audio/wav">
-              Your browser does not support the audio element.
-            </audio>
-            <div *ngIf="song.loading" style="margin-left: -275px;">
-              <loading-bar></loading-bar>{{song.status}}
-            </div>
-
-            <!-- Delete Song -->
-            <a *ngIf="user && !song.loading" href="#" class="btn btn-secondary" style="margin-left: 10px;" (click)="deleteSong(song)">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </a>
-
-          </div>
+          <song [song]="song"></song>
         </div>
       </div>
 
       <!-- File Upload -->
       <div *ngIf="user" class="col-md-6">
-        <div id="load-song-input">
-          <input type="file" (change)="selectSongToUpload($event)" placeholder="Upload song" accept=".wav">
-        </div>
-        <div class="row">
-          <div *ngIf="songToUpload">
-            <h3>Chosen File: {{songToUpload}}</h3>
-            <div style="margin-top:15px">
-              Name your song:
-              <input type="text" class="form-control" placeholder="" [(ngModel)]="newSong.name">
-            </div>
-            <div style="text-align: center">
-              <button id="upload-button" class="btn btn-primary" (click)="uploadNewSong()">Upload</button>
-            </div>
-          </div>
-        </div>
+        <uploader></uploader>
       </div>
-
 
     </div>
   </div>

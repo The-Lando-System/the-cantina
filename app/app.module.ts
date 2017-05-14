@@ -13,6 +13,8 @@ import { AppComponent }  from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
+import { SongComponent } from './song/song.component';
+import { UploaderComponent } from './uploader/uploader.component';
 
 import { LoadingBarComponent } from './common/loading-bar/loading-bar.component';
 
@@ -40,7 +42,9 @@ import { Globals } from './globals';
     HomeComponent,
     NavbarComponent,
     LoginComponent,
-    LoadingBarComponent
+    LoadingBarComponent,
+    SongComponent,
+    UploaderComponent
   ],
   providers: [
     Logger,
