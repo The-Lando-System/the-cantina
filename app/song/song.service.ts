@@ -59,7 +59,6 @@ export class SongService {
     return this.http.delete(this.songUrl + songId, {headers: this.userSvc.getAuthHeaders()})
     .toPromise()
     .then((res:any) => {
-      return res.json();
     }).catch((err:any) => {
       console.log(err);
     });

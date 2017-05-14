@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RequestOptions, Http } from '@angular/http';
+import { Broadcaster } from 'sarlacc-angular-client';
 
 import { SongService } from '../song/song.service';
 import { Song } from '../song/song';
@@ -21,11 +21,10 @@ export class SongComponent implements OnInit {
   constructor(
     private songSvc: SongService,
     private globals: Globals,
-    private http: Http
+    private bcaster: Broadcaster
   ){}
 
   ngOnInit(): void {
-    
   }
 
   deleteSong(song:Song) {
@@ -37,7 +36,7 @@ export class SongComponent implements OnInit {
 
     this.songSvc.deleteSong(song.id)
     .then((res:any) => {
-
+        this.bcaster.broadcast("SONG_DELETED",song.id);
     }).catch((err:any) => {});
 
   }

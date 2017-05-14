@@ -1,14 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService, User, Broadcaster } from 'sarlacc-angular-client';
-import { RequestOptions, Http } from '@angular/http';
 
 import { SongService } from '../song/song.service';
 import { Song } from '../song/song';
 
 import { Globals } from '../globals';
-
-declare var SockJS: any;
-declare var Stomp: any;
 
 @Component({
   moduleId: module.id,
@@ -22,30 +18,23 @@ export class HomeComponent implements OnInit {
   user: User;
   songs: Song[];
   cantinaSvcUrl: string = this.globals.svc_domain + '/songs/';
-  websocketUrl: string = this.globals.svc_domain + '/websocket';
-  statusTopic: string = '/topic/song-status/';
-  songToUpload: string;
-  newSong: Song = new Song;
-  songFile: File;
 
-  stompClient: any;
-  
   private homeLoading = false;
 
   constructor(
     private userSvc: UserService,
     private broadcaster: Broadcaster,
     private songSvc: SongService,
-    private globals: Globals,
-    private http: Http
+    private globals: Globals
   ){}
 
   ngOnInit(): void {
     this.homeLoading = true;
 
-    this.connect();
     this.listenForLogin();
     this.listenForLogout();
+    this.listenForNewSongs();
+    this.listenForDeletedSongs();
     
     this.userSvc.returnUser()
     .then((user:User) => {
@@ -54,33 +43,6 @@ export class HomeComponent implements OnInit {
     }).catch((res:any) => {
       this.getSongs();
     });
-  }
-
-  connect(): void {
-    var socket = new SockJS(this.websocketUrl);
-    this.stompClient = Stomp.over(socket);
-    this.stompClient.connect({}, (frame:any) => {
-      console.log('Connected: ' + frame);
-      this.subscribe();
-    }, (err:any) => {
-      console.log(err);
-    });
-  }
-
-  subscribe():void {
-    this.stompClient.subscribe(this.statusTopic, (res:any) => {
-        let loadingStatus = JSON.parse(res.body);
-        this.updateStatus(loadingStatus.songId, loadingStatus.loading, loadingStatus.status);
-    });
-  }
-
-  updateStatus(songId:string,songIsLoading:boolean,status:string) {
-    for(var i=0; i<this.songs.length; i++){
-      if (this.songs[i].id === songId){
-        this.songs[i].status = status;
-        this.songs[i].loading = songIsLoading;
-      }
-    }
   }
 
   listenForLogin(): void {
@@ -104,6 +66,31 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  listenForNewSongs(): void {
+    this.broadcaster.on<any>("NEW_SONG")
+    .subscribe(newSong => {
+
+      if (newSong.id){
+        this.removeSongFromSongs('loading');
+        this.songs.push(newSong);
+      } else if (newSong.name) {
+        newSong.id = 'loading';
+        this.songs.push(newSong);
+      } else {
+        console.log("Error creating new song");
+        this.getSongs();
+      }
+      
+    });
+  }
+
+  listenForDeletedSongs(): void {
+    this.broadcaster.on<string>("SONG_DELETED")
+    .subscribe(songId => {
+      this.removeSongFromSongs(songId);
+    });
+  }
+
   getSongs(): void {
     this.songSvc.getSongs()
     .then((songs:Song[]) => {
@@ -123,5 +110,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  private updateSong(song:Song){
+    for(var i=0; i<this.songs.length; i++){
+      if (this.songs[i].id === song.id){
+        this.songs[i] = song;
+      }
+    }
+  }
 
 }

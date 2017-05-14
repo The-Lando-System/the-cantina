@@ -14,7 +14,11 @@
       <!-- Songs -->
       <div class="col-md-6">
         <div *ngFor="let song of songs">
-          <song [song]="song"></song>
+          <song *ngIf="!song.loading" [song]="song"></song>
+          <div *ngIf="song.loading">
+            <h3>{{song.name}}</h3>
+            <loading-bar></loading-bar>
+          </div>
         </div>
       </div>
 

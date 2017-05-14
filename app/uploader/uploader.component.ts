@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RequestOptions, Http } from '@angular/http';
+import { Broadcaster } from 'sarlacc-angular-client';
 
 import { SongService } from '../song/song.service';
 import { Song } from '../song/song';
@@ -25,20 +25,28 @@ export class UploaderComponent implements OnInit {
   constructor(
     private songSvc: SongService,
     private globals: Globals,
-    private http: Http
+    private bcaster: Broadcaster
   ){}
 
   ngOnInit(): void {
   }
 
   uploadNewSong() {
+
+    this.newSong.loading = true;
+    this.bcaster.broadcast("NEW_SONG",this.newSong);
+
     this.songSvc.createSong(this.songFile,this.newSong.name)
     .then((createdSong:Song) => {
-        this.newSong = new Song();
-        this.songFile = null;
-    }).catch((err:any) => {
+        createdSong.loading = false;
+        this.bcaster.broadcast("NEW_SONG",createdSong);
 
+    }).catch((err:any) => {
+        this.bcaster.broadcast("NEW_SONG",new Song());
     });
+
+    this.newSong = new Song();
+    this.songFile = null;
   }
 
   selectSongToUpload(event:any) {
