@@ -1,7 +1,7 @@
 {
-  "name": "sensor-analyzer",
+  "name": "the-cantina",
   "version": "1.0.0",
-  "description": "Display and analyze sensor data using websockets",
+  "description": "Upload and download some fresh beats",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "startProd": "tsc && concurrently \"tsc -w\" \"http-server -p 3000\" ",
