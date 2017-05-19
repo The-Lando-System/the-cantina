@@ -3,7 +3,7 @@
 </div>
 <div class="row">
     <audio controls>
-        <source [src]="cantinaSvcUrl + song.id + '/song-data'" type="audio/wav">
+        <source [src]="song.url" type="audio/wav">
         Your browser does not support the audio element.
     </audio>
     <a href="#" class="btn btn-secondary" style="margin-left: 10px;" (click)="deleteSong(song)">

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { UserService } from 'sarlacc-angular-client';
 
 import { Globals } from '../globals';
@@ -38,15 +38,17 @@ export class SongService {
     });
   } 
 
-  createSong(songFile:File,name:string): Promise<Song> {
+  createSong(songFile:File,songToCreate:Song): Promise<Song> {
 
     let formData:FormData = new FormData();
+    formData.append('name', songToCreate.name);
+    formData.append('filename', songToCreate.filename);
     formData.append('song', songFile);
-    
+
     let headers = this.userSvc.getAuthHeaders();
     headers.append('Content-Type','multipart/form-data');
 
-    return this.http.post(this.songUrl + name, formData, headers)
+    return this.http.post(this.songUrl, formData, headers)
     .toPromise()
     .then((res:any) => {
       return res.json();

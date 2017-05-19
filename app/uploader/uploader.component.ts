@@ -36,7 +36,7 @@ export class UploaderComponent implements OnInit {
     this.newSong.loading = true;
     this.bcaster.broadcast("NEW_SONG",this.newSong);
 
-    this.songSvc.createSong(this.songFile,this.newSong.name)
+    this.songSvc.createSong(this.songFile,this.newSong)
     .then((createdSong:Song) => {
         createdSong.loading = false;
         this.bcaster.broadcast("NEW_SONG",createdSong);
@@ -54,6 +54,7 @@ export class UploaderComponent implements OnInit {
     if(fileList.length > 0) {
       this.songFile = fileList[0];
       this.newSong.name = this.songFile.name;
+      this.newSong.filename = this.songFile.name;
     }
   }
 
