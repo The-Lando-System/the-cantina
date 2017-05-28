@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Broadcaster } from 'sarlacc-angular-client';
+import { UserService, Broadcaster, User } from 'sarlacc-angular-client';
 
 import { SongService } from '../song/song.service';
 import { Song } from '../song/song';
@@ -15,16 +15,23 @@ import { Globals } from '../globals';
 })
 export class SongComponent implements OnInit {
 
+  private user:User;
+
   @Input() song: Song;
   cantinaSvcUrl: string = this.globals.svc_domain + '/songs/';
 
   constructor(
+    private userService: UserService,
     private songSvc: SongService,
     private globals: Globals,
     private bcaster: Broadcaster
   ){}
 
   ngOnInit(): void {
+    this.userService.returnUser()
+    .then((user:User) => {
+      this.user = user;
+    }).catch((err:any) => {});
   }
 
   deleteSong(song:Song) {
@@ -41,5 +48,8 @@ export class SongComponent implements OnInit {
 
   }
 
+  isUserAdmin(): boolean {
+    return this.userService.isAdminForApp('the-cantina');
+  }
 
 }
