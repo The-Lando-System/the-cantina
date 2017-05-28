@@ -46,9 +46,9 @@ export class SongService {
     formData.append('song', songFile);
 
     let headers = this.userSvc.getAuthHeaders();
-    headers.append('Content-Type','multipart/form-data');
+    headers.delete('Content-Type');
 
-    return this.http.post(this.songUrl, formData, headers)
+    return this.http.post(this.songUrl, formData, {headers: headers})
     .toPromise()
     .then((res:any) => {
       return res.json();
