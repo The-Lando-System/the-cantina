@@ -102,6 +102,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  isUserAdmin(): boolean {
+    return this.userSvc.isAdminForApp('the-cantina');
+  } 
+
   private removeSongFromSongs(songId:string){
     for(var i=0; i<this.songs.length; i++){
       if (this.songs[i].id === songId){

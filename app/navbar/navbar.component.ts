@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
     this.userService.returnUser()
     .then((user:User) => {
       this.user = user;
-      this.sarlaccUrl = this.tokenUrl + this.userService.getToken().access_token;
+      this.sarlaccUrl = this.tokenUrl + this.user.token.access_token;
     }).catch((error:string) => {});
 
     this.listenForLogin();
@@ -47,7 +47,7 @@ export class NavbarComponent implements OnInit {
       this.userService.returnUser()
       .then((user:User) => {
         this.user = user;
-        this.sarlaccUrl = this.tokenUrl + this.userService.getToken().access_token;
+        this.sarlaccUrl = this.tokenUrl + this.user.token.access_token;
       }).catch((error:string) => {});
     });
   }

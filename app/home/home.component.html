@@ -23,7 +23,7 @@
       </div>
 
       <!-- File Upload -->
-      <div *ngIf="user" class="col-md-6">
+      <div *ngIf="isUserAdmin()" class="col-md-6">
         <uploader></uploader>
       </div>
 
