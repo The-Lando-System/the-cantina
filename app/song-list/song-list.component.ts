@@ -20,6 +20,8 @@ export class SongListComponent implements OnInit {
   private songs: Song[];
   private loading = false;
 
+  private songToEdit: Song;
+
   constructor(
     private userService: UserService,
     private songSvc: SongService,
@@ -69,6 +71,12 @@ export class SongListComponent implements OnInit {
 
   isUserAdmin(): boolean {
     return this.userService.isAdminForApp('the-cantina');
+  }
+
+  editSong(song:Song) {
+    event.preventDefault();
+    console.log(song);
+    this.songToEdit = song;
   }
 
   listenForNewSongs(): void {

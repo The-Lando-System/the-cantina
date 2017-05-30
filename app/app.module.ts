@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { SongPlayerComponent } from './song-player/song-player.component';
 import { SongListComponent } from './song-list/song-list.component';
 import { UploaderComponent } from './uploader/uploader.component';
+import { SongEditorComponent } from './song-editor/song-editor.component';
 
 import { LoadingBarComponent } from './common/loading-bar/loading-bar.component';
 
@@ -46,7 +47,8 @@ import { Globals } from './globals';
     LoadingBarComponent,
     SongPlayerComponent,
     SongListComponent,
-    UploaderComponent
+    UploaderComponent,
+    SongEditorComponent
   ],
   providers: [
     Logger,

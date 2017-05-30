@@ -45,14 +45,8 @@ export class SongPlayerComponent implements OnInit {
     });
   }
 
-  play(): void {
-    event.preventDefault();
-    this.audio.play();
-  }
-
-  pause(): void {
-    event.preventDefault();
-    this.audio.pause();
+  getSongArt(): string {
+      return this.song.artUrl || "https://vignette3.wikia.nocookie.net/starwars/images/6/68/Bith-GOI.jpg/revision/latest/scale-to-width-down/160?cb=20131206104539";
   }
 
 }

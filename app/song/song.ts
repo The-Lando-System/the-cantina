@@ -3,6 +3,7 @@ export class Song {
   name: string;
   filename: string;
   url: string;
+  artUrl: string;
   loading: boolean;
   status: string;
 }
