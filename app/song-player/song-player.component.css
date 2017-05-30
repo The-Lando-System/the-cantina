@@ -1,0 +1,18 @@
+.card {
+    position:fixed;
+    top:115px;
+    width:40%;
+    z-index:100;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}
+
+.row {
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+audio {
+    border: solid 0.5px;
+}

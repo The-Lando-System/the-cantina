@@ -7,26 +7,30 @@
 
 <!-- Main Page -->
 <div *ngIf="!homeLoading">
-  
   <div class="container">
+
+    <!-- Song Player -->
     <div class="row">
-
-      <!-- Songs -->
+      <div class="col-md-6"></div>
       <div class="col-md-6">
-        <div *ngFor="let song of songs">
-          <song *ngIf="!song.loading" [song]="song"></song>
-          <div *ngIf="song.loading">
-            <h3>{{song.name}}</h3>
-            <loading-bar></loading-bar>
-          </div>
-        </div>
+        <song-player></song-player>
       </div>
+    </div>
 
-      <!-- File Upload -->
-      <div *ngIf="isUserAdmin()" class="col-md-6">
+    <!-- Song List -->
+    <div class="row">
+      <div class="col-md-6">
+        <song-list></song-list>
+      </div>
+      <div class="col-md-6"></div>
+    </div>
+    
+    <!-- Song Upload -->
+    <div *ngIf="isUserAdmin()" class="row">
+      <div class="col-md-6">
         <uploader></uploader>
       </div>
-
+      <div class="col-md-6"></div>
     </div>
   </div>
 </div>

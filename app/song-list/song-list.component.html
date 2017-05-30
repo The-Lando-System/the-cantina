@@ -1,0 +1,11 @@
+<ul class="list-group">
+  <li *ngFor="let song of songs" (click)="selectSong(song)" class="list-group-item justify-content-between">
+    {{song.name}}
+    <span *ngIf="!song.loading" class="badge">
+        <a *ngIf="isUserAdmin()" href="#" class="btn btn-outline-danger" (click)="deleteSong(song)">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </a>
+    </span>
+    <loading-bar *ngIf="song.loading"></loading-bar>
+  </li>
+</ul>
