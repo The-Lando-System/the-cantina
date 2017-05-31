@@ -3,13 +3,12 @@ button:hover {
   cursor: pointer;
 }
 
-
 body {
-  background-color: #fafafa!important;
-}
-
-.main {
-  margin-bottom: 30px;
+  background-color: #a9a9ab!important;
+  background-image: url('resources/images/background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; 
 }
 
 .center-page {

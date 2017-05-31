@@ -1,11 +1,12 @@
 .card {
     position:fixed;
-    top:115px;
-    width:40%;
+    bottom:0px;
+    width:95%;
     z-index:100;
-    -webkit-box-shadow: 0 10px 6px -6px #777;
-    -moz-box-shadow: 0 10px 6px -6px #777;
-    box-shadow: 0 10px 6px -6px #777;
+    margin:20px;
+    -webkit-box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
+    -moz-box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
+    box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
 }
 
 audio {

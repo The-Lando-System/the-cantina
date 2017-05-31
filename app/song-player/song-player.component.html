@@ -1,15 +1,12 @@
 <div class="card card-block">
-    <div class="row">
-        <div class="col-md-2">
-            <img *ngIf="song" [src]="getSongArt()" height="100" width="75" class="rounded float-left" alt="song art">
+    <div class="col-md-6">
+        <img *ngIf="song" [src]="getSongArt()" style="margin-right: 20px" height="100" width="75" class="rounded float-left" alt="song art">
+        <div *ngIf="song">
+            <h3>{{(song.name.length > 20) ? song.name.substring(0, 17) + '...' : song.name}}</h3>
         </div>
-        <div class="col-md-10">
-            <div *ngIf="song" class="col-md-12">
-                <h3>{{(song.name.length > 20) ? song.name.substring(0, 20) + '...' : song.name}}</h3>
-            </div>
-            <div class="col-md-12" style="margin-top:30px">
-                <audio id="my-audio" controls></audio>
-            </div>
-        </div>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="row" style="margin-top:20px; margin-left: 5px;">
+        <audio id="my-audio" controls></audio>
     </div>
 </div>
