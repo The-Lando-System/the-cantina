@@ -12,3 +12,7 @@
 audio {
     border: solid 0.5px;
 }
+
+#min-and-max span {
+    cursor: pointer;
+}

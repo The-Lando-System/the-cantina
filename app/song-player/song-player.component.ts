@@ -15,6 +15,7 @@ export class SongPlayerComponent implements OnInit {
 
   private song: Song;
   private audio: any;
+  private minimized: boolean = false;
   
   constructor(
     private userService: UserService,
@@ -35,13 +36,22 @@ export class SongPlayerComponent implements OnInit {
   listenForSelectedSong(): void {
     this.bcaster.on<string>("SONG_SELECTED")
     .subscribe(songId => {
-      this.songSvc.getSongById(songId)
-      .then((song:Song) => {
-        this.song = song;
-        this.audio = document.getElementById('my-audio');
-        this.audio.src = this.song.url;
-        this.audio.load();
-      });
+      this.initAudioBySongId(songId);
+    });
+  }
+
+  minimize(isMinimized:boolean): void {
+    this.minimized = isMinimized;
+    this.initAudioBySongId(this.song.id);
+  }
+
+  initAudioBySongId(songId:string): void {
+    this.songSvc.getSongById(songId)
+    .then((song:Song) => {
+      this.song = song;
+      this.audio = document.getElementById('my-audio');
+      this.audio.src = this.song.url;
+      this.audio.load();
     });
   }
 
