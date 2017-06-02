@@ -5,9 +5,9 @@
         <div style="margin: 15px; float:left">
             <img *ngIf="song" [src]="getSongArt()" height="75" class="rounded" alt="song art">
         </div>
-        <div *ngIf="song" style="margin: 10px; float:left">
-            <h3>{{(song.name.length > 20) ? song.name.substring(0, 17) + '...' : song.name}}</h3>
-            <audio id="my-audio" controls class="embed-responsive-item"></audio>
+        <div style="margin: 10px; float:left">
+            <h3 *ngIf="song">{{(song.name.length > 20) ? song.name.substring(0, 17) + '...' : song.name}}</h3>
+            <audio id="my-audio" controls></audio>
         </div>
 
     </div>

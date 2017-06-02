@@ -51,11 +51,12 @@ export class UploaderComponent implements OnInit {
 
   selectSongToUpload(event:any) {
     let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-      this.songFile = fileList[0];
-      this.newSong.name = this.songFile.name;
-      this.newSong.filename = this.songFile.name;
-    }
+    this.songFile = fileList[0];
+    this.newSong.name = this.songFile.name;
+    this.newSong.filename = this.songFile.name;
+    setTimeout(function() {
+      document.getElementById("openUploaderModalButton").click();
+    });
   }
 
 }
