@@ -2,24 +2,6 @@
     <input type="file" (change)="selectSongToUpload($event)" placeholder="Upload song" accept=".wav">
     <button id="openUploaderModalButton" class="btn btn-secondary" [hidden]="!songFile" data-toggle="modal" data-target="#uploaderModal">Open Upload Modal</button>
 </div>
-<!--<div class="row">
-    <div *ngIf="newSong.name">
-        <div class="row">
-            <h3>Chosen File: {{songFile.name}}</h3>
-        </div>
-        <div class="row">
-            Song Name:
-            <input type="text" class="form-control" placeholder="" [(ngModel)]="newSong.name">
-        </div>
-        <div class="row">
-            File Name:
-            <input type="text" class="form-control" placeholder="" [(ngModel)]="newSong.filename">
-        </div>
-        <div class="row">
-            <button id="upload-button" class="btn btn-primary" (click)="uploadNewSong()">Upload</button>
-        </div>
-    </div>
-</div>-->
 
 <!-- Uploader Modal -->
 <div *ngIf="newSong.name" class="modal fade" id="uploaderModal" tabindex="-1" role="dialog" aria-labelledby="uploaderModalLabel" aria-hidden="true">
