@@ -15,7 +15,6 @@ export class SongPlayerComponent implements OnInit {
 
   private song: Song;
   private audio: any;
-  private minimized: boolean = false;
   
   constructor(
     private userService: UserService,
@@ -38,11 +37,6 @@ export class SongPlayerComponent implements OnInit {
     .subscribe(songId => {
       this.initAudioBySongId(songId);
     });
-  }
-
-  minimize(isMinimized:boolean): void {
-    this.minimized = isMinimized;
-    this.initAudioBySongId(this.song.id);
   }
 
   initAudioBySongId(songId:string): void {

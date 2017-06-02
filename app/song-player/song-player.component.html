@@ -1,26 +1,14 @@
 <div class="card card-block">
-    <div id="min-and-max" class="col-md-12" style="margin-bottom:-20px;text-align:right">
-        <span *ngIf="!minimized" (click)="minimize(true)"><i class="fa fa-minus-square-o" aria-hidden="true"></i></span>
-        <span *ngIf="minimized" (click)="minimize(false)"><i class="fa fa-plus-square-o" aria-hidden="true"></i></span>
-    </div>
-    <div *ngIf="!minimized">
-        <div class="col-md-6">
-            <img *ngIf="song" [src]="getSongArt()" style="margin-right: 20px" height="100" width="75" class="rounded float-left" alt="song art">
-            <div *ngIf="song">
-                <h3>{{(song.name.length > 20) ? song.name.substring(0, 17) + '...' : song.name}}</h3>
-            </div>
+    <div>
+
+        <!-- Maximized -->
+        <div style="margin: 15px; float:left">
+            <img *ngIf="song" [src]="getSongArt()" height="75" class="rounded" alt="song art">
         </div>
-        <div class="col-md-6"></div>
-        <div class="row" style="margin-top:20px; margin-left: 5px;">
-            <audio id="my-audio" controls></audio>
+        <div *ngIf="song" style="margin: 10px; float:left">
+            <h3>{{(song.name.length > 20) ? song.name.substring(0, 17) + '...' : song.name}}</h3>
+            <audio id="my-audio" controls class="embed-responsive-item"></audio>
         </div>
-    </div>
-    <div *ngIf="minimized">
-        <div class="row" style="margin-top: -10px; margin-bottom: -10px;">
-            <div *ngIf="song" style="margin-right:30px; margin-left:20px;">
-                <h3>{{(song.name.length > 20) ? song.name.substring(0, 17) + '...' : song.name}}</h3>
-            </div>
-            <audio id="my-audio" controls></audio>
-        </div>
+
     </div>
 </div>

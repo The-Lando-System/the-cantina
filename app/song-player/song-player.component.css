@@ -1,9 +1,9 @@
 .card {
-    position:fixed;
-    bottom:0px;
-    width:95%;
+    width:100%;
+    max-width: 550px;
     z-index:100;
-    margin:20px;
+    overflow: auto;
+    margin-bottom: 50px;
     -webkit-box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
     -moz-box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
     box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
@@ -13,6 +13,6 @@ audio {
     border: solid 0.5px;
 }
 
-#min-and-max span {
+i {
     cursor: pointer;
 }

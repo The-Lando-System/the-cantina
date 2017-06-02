@@ -6,32 +6,14 @@
 </div>
 
 <!-- Main Page -->
-<div *ngIf="!homeLoading">
-  <div class="container">
-
-    <!-- Song List -->
-    <div class="row">
-      <div class="col-md-6">
-        <song-list></song-list>
-      </div>
-      <div class="col-md-6"></div>
-    </div>
-    
-    <!-- Song Upload -->
-    <div *ngIf="isUserAdmin()" class="row">
-      <div class="col-md-6">
+<div *ngIf="!homeLoading" class="container-fluid">
+    <div class="row" >
+      <div class="col-sm-6">
+        <song-player></song-player>
         <uploader></uploader>
       </div>
-      <div class="col-md-6"></div>
+      <div class="col-sm-6">
+        <song-list></song-list>
+      </div>
     </div>
-
-    
-
-  </div>
-
-  <!-- Song Player -->
-  <div class="row" style="margin-top: 200px;">
-    <song-player></song-player>
-  </div>
-
 </div>
