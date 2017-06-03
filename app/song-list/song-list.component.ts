@@ -15,8 +15,6 @@ import { Globals } from '../globals';
 })
 export class SongListComponent implements OnInit {
 
-  cantinaSvcUrl: string = this.globals.svc_domain + '/songs/';
-
   private songs: Song[];
   private loading = false;
 

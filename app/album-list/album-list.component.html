@@ -1,0 +1,20 @@
+<div class="album-box">
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col album-nav">
+            <div style="text-align: left; width:100%">
+                <i (click)="nextAlbum(false)" class="fa fa-arrow-circle-o-left fa-2x" style="color:white" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="col-7 col-xs-auto" style="width:100%">
+            <h1 class="display-3">{{selectedAlbum.name}}</h1>
+            <p class="lead">{{selectedAlbum.description}}</p>
+        </div>
+        <div class="col album-nav">
+            <div style="text-align: right; width:100%">
+                <i (click)="nextAlbum(true)" class="fa fa-arrow-circle-o-right fa-2x" style="color:white" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
