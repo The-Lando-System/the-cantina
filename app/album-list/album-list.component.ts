@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Broadcaster } from 'sarlacc-angular-client';
+import { Broadcaster, UserService } from 'sarlacc-angular-client';
 
 import { AlbumService } from '../album/album.service';
 import { Album } from '../album/album';
@@ -20,43 +20,22 @@ export class AlbumListComponent implements OnInit {
   private loading = false;
 
   constructor(
-    private songSvc: AlbumService,
-    private bcaster: Broadcaster
+    private albumSvc: AlbumService,
+    private bcaster: Broadcaster,
+    private userSvc: UserService
   ){}
 
   ngOnInit(): void {
+    this.userSvc.returnUser().then((res:any) => {}).catch((err:any) => {});
     this.getAlbums();
   }
 
   getAlbums(): void {
-
-    let a1:Album = new Album();
-    a1.name = 'This is a Long Album Name';
-    a1.description = 'Album 1 description';
-    a1.songIds = ['1','2','3'];
-
-    let a2:Album = new Album();
-    a2.name = 'Album 2';
-    a2.description = 'Album 2 description';
-    a2.songIds = ['1','2','3'];
-
-    let a3:Album = new Album();
-    a3.name = 'Album 3';
-    a3.description = 'Album 3 description';
-    a3.songIds = ['1','2','3'];
-
-    this.albums.push(a1,a2,a3);
-
-    this.selectedAlbum = a1;
-
-    // this.songSvc.getSongs()
-    // .then((songs:Song[]) => {
-    //   this.songs = songs;
-    //   this.bcaster.broadcast("SONG_SELECTED",this.songs[0].id);
-    //   this.loading = false;
-    // }).catch((res:any) => {
-    //   this.loading = false;
-    // });
+    this.albumSvc.getAlbums()
+    .then((albums:Album[]) => {
+      this.albums = albums;
+      this.selectedAlbum = this.albums[0];
+    }).catch((err:any) => {});
   }
 
   nextAlbum(isNext:boolean): void {
@@ -78,6 +57,10 @@ export class AlbumListComponent implements OnInit {
             }
         }
     }
+  }
+
+  isAdmin(): boolean {
+    return this.userSvc.isAdminForApp('the-cantina');
   }
 
 }

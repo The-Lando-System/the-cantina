@@ -1,14 +1,11 @@
 <div class="card card-block">
-    <div>
-
-        <!-- Maximized -->
-        <div style="margin: 15px; float:left">
-            <img *ngIf="song" [src]="getSongArt()" height="75" class="rounded" alt="song art">
+    <div class="row">
+        <div class="col-3" style="min-width: 75px; overflow: auto; text-align: right">
+            <img *ngIf="song" [src]="getSongArt()" width="75px" class="rounded" alt="song art">
         </div>
-        <div style="margin: 10px; float:left">
-            <h3 *ngIf="song">{{(song.name.length > 20) ? song.name.substring(0, 17) + '...' : song.name}}</h3>
+        <div class="col-9" style="width: 100%; overflow: auto">
+            <h3 *ngIf="song">{{song.name}}</h3>
             <audio id="my-audio" controls></audio>
         </div>
-
     </div>
 </div>

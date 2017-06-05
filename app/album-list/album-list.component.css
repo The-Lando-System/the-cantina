@@ -3,6 +3,7 @@
     background-color: #292b2c;
     border: 1px solid rgba(0,0,0,.125);
     text-align: center;
+    overflow: auto;
 }
 
 .display-3 {
@@ -12,12 +13,6 @@
 
 .lead {
     color: white;
-}
-
-.album-nav {
-    display: flex;
-    align-items: center;
-    width: 100%;
 }
 
 i {
