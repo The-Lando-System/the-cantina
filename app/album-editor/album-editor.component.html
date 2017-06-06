@@ -9,12 +9,30 @@
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3"><h4>Art Url:</h4></div>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" placeholder="Album Art Url" [(ngModel)]="album.artUrl">
-                </div>
-            </div>
+          <div class="row">
+              <div class="col"><h4>Name:</h4></div>
+          </div>
+          <div class="row">
+              <div class="col">
+                  <input type="text" class="form-control" placeholder="Name" [(ngModel)]="album.name">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><h4>Description:</h4></div>
+          </div>
+          <div class="row">
+              <div class="col">
+                  <input type="text" class="form-control" placeholder="Description" [(ngModel)]="album.description">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col"><h4>Art Url:</h4></div>
+          </div>
+          <div class="row">
+              <div class="col">
+                  <input type="text" class="form-control" placeholder="Art Url" [(ngModel)]="album.artUrl">
+              </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">

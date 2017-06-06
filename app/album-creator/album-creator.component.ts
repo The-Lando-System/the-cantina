@@ -6,14 +6,13 @@ import { Album } from '../album/album';
 
 @Component({
   moduleId: module.id,
-  selector: 'album-editor',
-  templateUrl: 'album-editor.component.html',
-  styleUrls: [ 'album-editor.component.css' ],
+  selector: 'album-creator',
+  templateUrl: 'album-creator.component.html',
+  styleUrls: [ 'album-creator.component.css' ],
   providers: [ AlbumService ]
 })
-export class AlbumEditorComponent implements OnInit {
+export class AlbumCreatorComponent implements OnInit {
 
-  @Input('albumToEdit')
   private album: Album;
   
   constructor(
@@ -25,8 +24,12 @@ export class AlbumEditorComponent implements OnInit {
     this.userService.returnUser().then((user:User) => {}).catch((err:any) => {});
   }
 
-  updateAlbum(): void {
-      
+  createAlbum(): void {
+    this.albumSvc.createAlbum(this.album)
+    .then((album:Album) => {
+
+    }).catch((err:any) => {});
+
   }
 
 }

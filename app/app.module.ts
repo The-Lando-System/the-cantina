@@ -19,6 +19,7 @@ import { UploaderComponent } from './uploader/uploader.component';
 import { SongEditorComponent } from './song-editor/song-editor.component';
 import { AlbumListComponent } from './album-list/album-list.component';
 import { AlbumEditorComponent } from './album-editor/album-editor.component';
+import { AlbumCreatorComponent } from './album-creator/album-creator.component';
 
 import { LoadingBarComponent } from './common/loading-bar/loading-bar.component';
 import { SoundWavesComponent } from './common/sound-waves/sound-waves.component';
@@ -54,7 +55,8 @@ import { Globals } from './globals';
     SongEditorComponent,
     SoundWavesComponent,
     AlbumListComponent,
-    AlbumEditorComponent
+    AlbumEditorComponent,
+    AlbumCreatorComponent
   ],
   providers: [
     Logger,
