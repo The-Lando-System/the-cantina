@@ -80,4 +80,14 @@ export class SongService {
     });
   }
 
+  getSongsByAlbumId(albumId:string): Promise<Song[]> {
+    return this.http.get(this.songUrl + 'album/' + albumId)
+    .toPromise()
+    .then((res:any) => {
+      return res.json();
+    }).catch((err:any) => {
+      console.log(err);
+    });
+  }
+
 }

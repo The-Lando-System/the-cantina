@@ -31,6 +31,14 @@ export class AlbumListComponent implements OnInit {
     this.listenForNewAlbums();
   }
 
+  private initSinglesAlbum(): void {
+    let singlesAlbum = new Album();
+    singlesAlbum.id = 'singles';
+    singlesAlbum.name = 'Singles';
+    this.albums.push(singlesAlbum);
+    this.selectAlbum(singlesAlbum);
+  }
+
   listenForNewAlbums(): void {
     this.bcaster.on<any>("ALBUM_CREATED").subscribe( res => {
       this.getAlbums();
@@ -48,7 +56,7 @@ export class AlbumListComponent implements OnInit {
     this.albumSvc.getAlbums()
     .then((albums:Album[]) => {
       this.albums = albums;
-      this.selectedAlbum = this.albums[0];
+      this.initSinglesAlbum();
       this.loading = false;
     }).catch((err:any) => {
       this.loading = false;
@@ -60,20 +68,25 @@ export class AlbumListComponent implements OnInit {
     for (let i=0; i<this.albums.length; i++){
         if (this.albums[i].name === this.selectedAlbum.name){
             if (i === this.albums.length - 1 && isNext ){
-                this.selectedAlbum = this.albums[0];
+                this.selectAlbum(this.albums[0]);
                 return;
             } else if (i === 0 && !isNext ) {
-                this.selectedAlbum = this.albums[this.albums.length - 1];
+                this.selectAlbum(this.albums[this.albums.length - 1]);
                 return;
             } else if (isNext){
-                this.selectedAlbum = this.albums[i+1];
+                this.selectAlbum(this.albums[i+1]);
                 return;
             } else if (!isNext){
-                this.selectedAlbum = this.albums[i-1];
+                this.selectAlbum(this.albums[i-1]);
                 return;
             }
         }
     }
+  }
+
+  selectAlbum(album:Album): void {
+    this.selectedAlbum = album;
+    this.bcaster.broadcast("ALBUM_SELECTED",album.id);
   }
 
   deleteAlbum(): void {

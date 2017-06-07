@@ -31,6 +31,7 @@ export class SongListComponent implements OnInit {
     this.userService.returnUser().then((user:User) => {}).catch((err:any) => {});
     this.getSongs();
     this.listenForNewSongs();
+    this.listenForAlbumChange();
   }
 
   getSongs(): void {
@@ -75,6 +76,20 @@ export class SongListComponent implements OnInit {
     event.preventDefault();
     console.log(song);
     this.songToEdit = song;
+  }
+
+  listenForAlbumChange(): void {
+    this.bcaster.on<any>("ALBUM_SELECTED")
+    .subscribe(albumId => {
+      this.loading = true;
+      this.songSvc.getSongsByAlbumId(albumId)
+      .then((songs:Song[]) => {
+        this.songs = songs;
+        this.loading = false;
+      }).catch((res:any) => {
+        this.loading = false;
+      });
+    });
   }
 
   listenForNewSongs(): void {
