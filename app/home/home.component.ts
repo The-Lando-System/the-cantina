@@ -10,8 +10,11 @@ import { UserService, User, Broadcaster } from 'sarlacc-angular-client';
 })
 export class HomeComponent implements OnInit {
 
+  private homeLoading: boolean;
+
   constructor(
-    private userSvc: UserService
+    private userSvc: UserService,
+    private bcaster: Broadcaster
   ){}
 
   ngOnInit(): void {

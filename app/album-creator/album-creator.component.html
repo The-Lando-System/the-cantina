@@ -7,6 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form #newAlbumForm="ngForm">
       <div class="modal-body">
         <div class="container-fluid">
             <div class="row">
@@ -14,7 +15,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Name" [(ngModel)]="album.name">
+                    <input type="text" class="form-control" placeholder="Name" name="name" [(ngModel)]="album.name" required>
                 </div>
             </div>
             <div class="row">
@@ -22,7 +23,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Description" [(ngModel)]="album.description">
+                    <input type="text" class="form-control" placeholder="Description" name="description" [(ngModel)]="album.description">
                 </div>
             </div>
             <div class="row">
@@ -30,15 +31,15 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Art Url" [(ngModel)]="album.artUrl">
+                    <input type="text" class="form-control" placeholder="Art Url" name="artUrl" [(ngModel)]="album.artUrl">
                 </div>
             </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="createAlbum()" data-dismiss="modal">Create</button>
+        <button type="button" (click)="createAlbum()" [disabled]="!newAlbumForm.form.valid" class="btn btn-primary" data-dismiss="modal">Create</button>
       </div>
+      </form>
     </div>
   </div>
 </div>

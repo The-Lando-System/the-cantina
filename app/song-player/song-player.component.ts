@@ -15,6 +15,7 @@ export class SongPlayerComponent implements OnInit {
 
   private song: Song;
   private audio: any;
+  private loading: boolean = false;
   
   constructor(
     private userService: UserService,
@@ -24,6 +25,7 @@ export class SongPlayerComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
+    this.loading = true;
     this.userService.returnUser().then((user:User) => {}).catch((err:any) => {});
     this.listenForSelectedSong();
   }
@@ -46,6 +48,9 @@ export class SongPlayerComponent implements OnInit {
       this.audio = document.getElementById('my-audio');
       this.audio.src = this.song.url;
       this.audio.load();
+      this.loading = false;
+    }).catch((err:any) => {
+      this.loading = false;
     });
   }
 

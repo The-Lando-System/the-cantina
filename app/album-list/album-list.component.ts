@@ -28,14 +28,31 @@ export class AlbumListComponent implements OnInit {
   ngOnInit(): void {
     this.userSvc.returnUser().then((res:any) => {}).catch((err:any) => {});
     this.getAlbums();
+    this.listenForNewAlbums();
+  }
+
+  listenForNewAlbums(): void {
+    this.bcaster.on<any>("ALBUM_CREATED").subscribe( res => {
+      this.getAlbums();
+    });
+  }
+
+  listenForUpdatedAlbums(): void {
+    this.bcaster.on<any>("ALBUM_UPDATED").subscribe( res => {
+      this.getAlbums();
+    });
   }
 
   getAlbums(): void {
+    this.loading = true;
     this.albumSvc.getAlbums()
     .then((albums:Album[]) => {
       this.albums = albums;
       this.selectedAlbum = this.albums[0];
-    }).catch((err:any) => {});
+      this.loading = false;
+    }).catch((err:any) => {
+      this.loading = false;
+    });
   }
 
   nextAlbum(isNext:boolean): void {
@@ -57,6 +74,20 @@ export class AlbumListComponent implements OnInit {
             }
         }
     }
+  }
+
+  deleteAlbum(): void {
+    let confirmed = confirm('Are you sure you want to delete this album? All songs on this album will be unassigned.');
+  
+    if (!confirmed) {
+      return;
+    }
+
+    this.albumSvc.deleteAlbum(this.selectedAlbum.id)
+    .then((res:any) => {
+      this.getAlbums();
+    }).catch((res:any) => {});
+
   }
 
   isAdmin(): boolean {

@@ -13,11 +13,12 @@ import { Album } from '../album/album';
 })
 export class AlbumCreatorComponent implements OnInit {
 
-  private album: Album;
+  private album: Album = new Album();
   
   constructor(
     private userService: UserService,
-    private albumSvc: AlbumService
+    private albumSvc: AlbumService,
+    private bcaster: Broadcaster
   ){}
 
   ngOnInit(): void {
@@ -27,7 +28,8 @@ export class AlbumCreatorComponent implements OnInit {
   createAlbum(): void {
     this.albumSvc.createAlbum(this.album)
     .then((album:Album) => {
-
+      this.bcaster.broadcast("ALBUM_CREATED");
+      this.album = new Album();
     }).catch((err:any) => {});
 
   }

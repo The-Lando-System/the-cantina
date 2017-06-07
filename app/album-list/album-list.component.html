@@ -1,34 +1,41 @@
 <div class="album-box">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <h1 class="display-3">{{selectedAlbum.name}}</h1>
-                <p class="lead">{{selectedAlbum.description}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div style="text-align: left; width:100%; margin-bottom: 20px;">
-                    <i (click)="nextAlbum(false)" class="fa fa-arrow-circle-o-left fa-2x" style="color:white" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="col">
-                <div style="text-align: right; width:100%; margin-bottom: 20px;">
-                    <i (click)="nextAlbum(true)" class="fa fa-arrow-circle-o-right fa-2x" style="color:white" aria-hidden="true"></i>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="isAdmin()" class="row" style="border-top: solid 1px white;">
+        <div *ngIf="loading" class="row">
             <div class="col" style="text-align: center">
-                <span style="cursor: pointer; margin: 10px;" data-toggle="modal" data-target="#albumEditorModal">
-                    <i class="fa fa-pencil fa-2x" style="color: white" aria-hidden="true"></i>
-                </span>
-                <span style="cursor: pointer; margin: 10px;" data-toggle="modal" data-target="#albumCreatorModal">
-                    <i class="fa fa-music fa-2x" style="color: white" aria-hidden="true"></i>
-                </span>
-                <span style="cursor: pointer; margin: 20px;" data-toggle="modal" data-target="#albumEditorModal">
-                    <i class="fa fa-trash fa-2x" style="color: white" aria-hidden="true"></i>
-                </span>
+                <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="color:white"></i>
+            </div>
+        </div>
+        <div *ngIf="!loading">
+            <div class="row">
+                <div class="col">
+                    <h1 class="display-3">{{selectedAlbum.name}}</h1>
+                    <p class="lead">{{selectedAlbum.description}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div style="text-align: left; width:100%; margin-bottom: 20px;">
+                        <i (click)="nextAlbum(false)" class="fa fa-arrow-circle-o-left fa-2x" style="color:white" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="col">
+                    <div style="text-align: right; width:100%; margin-bottom: 20px;">
+                        <i (click)="nextAlbum(true)" class="fa fa-arrow-circle-o-right fa-2x" style="color:white" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="isAdmin()" class="row" style="border-top: solid 1px white;">
+                <div class="col" style="text-align: center">
+                    <span style="cursor: pointer; margin: 10px;" data-toggle="modal" data-target="#albumEditorModal">
+                        <i class="fa fa-pencil fa-2x" style="color: white" aria-hidden="true"></i>
+                    </span>
+                    <span style="cursor: pointer; margin: 10px;" data-toggle="modal" data-target="#albumCreatorModal">
+                        <i class="fa fa-music fa-2x" style="color: white" aria-hidden="true"></i>
+                    </span>
+                    <span (click)="deleteAlbum()" style="cursor: pointer; margin: 20px;">
+                        <i class="fa fa-trash fa-2x" style="color: white" aria-hidden="true"></i>
+                    </span>
+                </div>
             </div>
         </div>
     </div>

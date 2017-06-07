@@ -18,7 +18,8 @@ export class AlbumEditorComponent implements OnInit {
   
   constructor(
     private userService: UserService,
-    private albumSvc: AlbumService
+    private albumSvc: AlbumService,
+    private bcaster: Broadcaster
   ){}
 
   ngOnInit(): void {
@@ -26,7 +27,10 @@ export class AlbumEditorComponent implements OnInit {
   }
 
   updateAlbum(): void {
-      
+      this.albumSvc.editAlbum(this.album)
+      .then((album:Album) => {
+        this.bcaster.broadcast("ALBUM_UPDATED");
+      }).catch((err:any) => {});
   }
 
 }
