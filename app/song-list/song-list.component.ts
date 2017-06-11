@@ -20,6 +20,8 @@ export class SongListComponent implements OnInit {
 
   private songToEdit: Song;
 
+  private currentAlbumId: string;
+
   constructor(
     private userService: UserService,
     private songSvc: SongService,
@@ -30,7 +32,6 @@ export class SongListComponent implements OnInit {
   ngOnInit(): void {
     this.userService.returnUser().then((user:User) => {}).catch((err:any) => {});
     this.getSongs();
-    this.listenForNewSongs();
     this.listenForAlbumChange();
   }
 
@@ -61,10 +62,15 @@ export class SongListComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     this.songSvc.deleteSong(song.id)
     .then((res:any) => {
         this.removeSongFromSongs(song.id);
-    }).catch((err:any) => {});
+        this.loading = false;
+    }).catch((err:any) => {
+        this.loading = false;
+    });
 
   }
 
@@ -82,6 +88,7 @@ export class SongListComponent implements OnInit {
     this.bcaster.on<any>("ALBUM_SELECTED")
     .subscribe(albumId => {
       this.loading = true;
+      this.currentAlbumId = albumId;
       this.songSvc.getSongsByAlbumId(albumId)
       .then((songs:Song[]) => {
         this.songs = songs;
@@ -89,24 +96,6 @@ export class SongListComponent implements OnInit {
       }).catch((res:any) => {
         this.loading = false;
       });
-    });
-  }
-
-  listenForNewSongs(): void {
-    this.bcaster.on<any>("NEW_SONG")
-    .subscribe(newSong => {
-
-      if (newSong.id){
-        this.removeSongFromSongs('loading');
-        this.songs.push(newSong);
-      } else if (newSong.name) {
-        newSong.id = 'loading';
-        this.songs.push(newSong);
-      } else {
-        console.log("Error creating new song");
-        this.getSongs();
-      }
-      
     });
   }
 

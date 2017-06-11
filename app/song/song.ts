@@ -6,4 +6,5 @@ export class Song {
   artUrl: string;
   loading: boolean;
   status: string;
+  albumId: string;
 }

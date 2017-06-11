@@ -29,14 +29,8 @@ export class AlbumListComponent implements OnInit {
     this.userSvc.returnUser().then((res:any) => {}).catch((err:any) => {});
     this.getAlbums();
     this.listenForNewAlbums();
-  }
-
-  private initSinglesAlbum(): void {
-    let singlesAlbum = new Album();
-    singlesAlbum.id = 'singles';
-    singlesAlbum.name = 'Singles';
-    this.albums.push(singlesAlbum);
-    this.selectAlbum(singlesAlbum);
+    this.listenForUpdatedAlbums();
+    this.listenForUpdatedSong();
   }
 
   listenForNewAlbums(): void {
@@ -51,12 +45,18 @@ export class AlbumListComponent implements OnInit {
     });
   }
 
+  listenForUpdatedSong(): void {
+    this.bcaster.on<any>("SONG_UPDATED").subscribe( res => {
+      this.getAlbums();
+    });
+  }
+
   getAlbums(): void {
     this.loading = true;
     this.albumSvc.getAlbums()
     .then((albums:Album[]) => {
       this.albums = albums;
-      this.initSinglesAlbum();
+      this.selectAlbum(albums[0]);
       this.loading = false;
     }).catch((err:any) => {
       this.loading = false;
@@ -90,15 +90,20 @@ export class AlbumListComponent implements OnInit {
   }
 
   deleteAlbum(): void {
-    let confirmed = confirm('Are you sure you want to delete this album? All songs on this album will be unassigned.');
-  
-    if (!confirmed) {
+
+    if (!confirm('Are you sure you want to delete this album? All songs on this album will be unassigned.')) {
+      return;
+    }
+
+    if (this.selectedAlbum.songIds.length > 0){
+      alert('You cannot delete this album until you reassign or remove all of its songs!');
       return;
     }
 
     this.albumSvc.deleteAlbum(this.selectedAlbum.id)
     .then((res:any) => {
       this.getAlbums();
+      this.bcaster.broadcast("ALBUM_UPDATED");
     }).catch((res:any) => {});
 
   }

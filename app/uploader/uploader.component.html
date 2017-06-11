@@ -14,24 +14,52 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="container-fluid">
+        <div *ngIf="!loading" class="container-fluid">
             <div class="row">
-                <div class="col-md-3"><h4>Name:</h4></div>
-                <div class="col-md-9">
+                <div class="col"><h4>Name</h4></div>
+            </div>
+            <div class="row">
+                <div class="col">
                     <input type="text" class="form-control" placeholder="Song Name" [(ngModel)]="newSong.name">
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3"><h4>Filename:</h4></div>
-                <div class="col-md-9">
+                <div class="col"><h4>Filename</h4></div>
+            </div>
+            <div class="row">
+                <div class="col">
                     <input type="text" class="form-control" placeholder="Song Filename (e.g. poop.wav)" [(ngModel)]="newSong.filename">
                 </div>
             </div>
+            <div class="row">
+              <div class="col">
+                <h4>Album</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{selectedAlbum.name}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button *ngFor="let album of albums" (click)="selectAlbum(album)" class="dropdown-item" type="button">{{album.name}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div *ngIf="loading" class="container-fluid">
+          <div class="row">
+            <div class="col">
+              <loading-bar></loading-bar>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="uploadNewSong()" data-dismiss="modal">Upload</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" [disabled]="loading">Close</button>
+        <button type="button" class="btn btn-primary" (click)="uploadNewSong()" [disabled]="loading">Upload</button>
       </div>
     </div>
   </div>

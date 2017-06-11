@@ -4,58 +4,90 @@ import { Broadcaster } from 'sarlacc-angular-client';
 import { SongService } from '../song/song.service';
 import { Song } from '../song/song';
 
-import { Globals } from '../globals';
+import { AlbumService } from '../album/album.service';
+import { Album } from '../album/album';
 
-declare var SockJS: any;
-declare var Stomp: any;
+import { Globals } from '../globals';
 
 @Component({
   moduleId: module.id,
   selector: 'uploader',
   templateUrl: 'uploader.component.html',
   styleUrls: [ 'uploader.component.css' ],
-  providers: [ SongService ]
+  providers: [ SongService, AlbumService ]
 })
 export class UploaderComponent implements OnInit {
 
-  cantinaSvcUrl: string = this.globals.svc_domain + '/songs/';
-  songFile: File;
-  newSong: Song = new Song();
+  private songFile: File;
+  private newSong: Song = new Song();
+  private loading: boolean = false;
+  private albums: Album[];
+  private selectedAlbum: Album = new Album();
 
   constructor(
     private songSvc: SongService,
     private globals: Globals,
-    private bcaster: Broadcaster
+    private bcaster: Broadcaster,
+    private albumSvc: AlbumService
   ){}
 
   ngOnInit(): void {
+    this.getAlbums();
+    this.listenForCreatedAlbum();
+    this.listenForUpdatedAlbum();
   }
 
   uploadNewSong() {
+    event.preventDefault();
 
-    this.newSong.loading = true;
-    this.bcaster.broadcast("NEW_SONG",this.newSong);
+    this.loading = true;
+
+    this.newSong.albumId = this.selectedAlbum.id;
 
     this.songSvc.createSong(this.songFile,this.newSong)
     .then((createdSong:Song) => {
-        createdSong.loading = false;
-        this.bcaster.broadcast("NEW_SONG",createdSong);
-
+        this.bcaster.broadcast("SONG_UPDATED");
+        this.loading = false;
     }).catch((err:any) => {
-        this.bcaster.broadcast("NEW_SONG",new Song());
+      this.loading = false;  
     });
 
     this.newSong = new Song();
     this.songFile = null;
   }
 
-  selectSongToUpload(event:any) {
+  selectSongToUpload(event:any): void {
+    event.preventDefault();
     let fileList: FileList = event.target.files;
     this.songFile = fileList[0];
     this.newSong.name = this.songFile.name;
     this.newSong.filename = this.songFile.name;
     setTimeout(function() {
       document.getElementById("openUploaderModalButton").click();
+    });
+  }
+
+  getAlbums(): void {
+    this.albumSvc.getAlbums()
+    .then((albums:Album[]) => {
+      this.albums = albums;
+      this.selectedAlbum = albums[0];
+    }).catch((res:any) => {});
+  }
+
+  selectAlbum(album:Album): void {
+    this.selectedAlbum = album;
+  }
+
+  listenForUpdatedAlbum(): void {
+    this.bcaster.on<any>("ALBUM_UPDATED").subscribe( res => {
+      this.getAlbums();
+    });
+  }
+
+  listenForCreatedAlbum(): void {
+    this.bcaster.on<any>("ALBUM_CREATED").subscribe( res => {
+      this.getAlbums();
     });
   }
 

@@ -43,6 +43,7 @@ export class SongService {
     let formData:FormData = new FormData();
     formData.append('name', songToCreate.name);
     formData.append('filename', songToCreate.filename);
+    formData.append('albumId', songToCreate.albumId);
     formData.append('song', songFile);
 
     let headers = this.userSvc.getAuthHeaders();
