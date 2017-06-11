@@ -59,10 +59,9 @@ export class SongEditorComponent implements OnInit {
       this.addSongToAlbum(this.newAlbum.id);
     }
 
-
-    this.songSvc.updateSongArt(this.song.artUrl,this.song.id)
-    .then((res:any) => {})
-    .catch((err:any) => {});
+    this.songSvc.updateSong(this.song)
+    .then((res:any) => {
+    }).catch((err:any) => {});
   }
 
   getAlbum(): void {

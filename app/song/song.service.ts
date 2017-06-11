@@ -67,13 +67,8 @@ export class SongService {
     });
   }
 
-  updateSongArt(artUrl:string, songId:string): Promise<void> {
-
-    let song:Song = new Song();
-    song.id = songId;
-    song.artUrl = artUrl;
-
-    return this.http.put(this.songUrl + songId, song, {headers: this.userSvc.getAuthHeaders()})
+  updateSong(updatedSong:Song): Promise<void> {
+    return this.http.put(this.songUrl + updatedSong.id, updatedSong, {headers: this.userSvc.getAuthHeaders()})
     .toPromise()
     .then((res:any) => {})
     .catch((err:any) => {

@@ -47,13 +47,14 @@ export class UploaderComponent implements OnInit {
     this.songSvc.createSong(this.songFile,this.newSong)
     .then((createdSong:Song) => {
         this.bcaster.broadcast("SONG_UPDATED");
+        document.getElementById("closeUploaderButton").click();
+        this.newSong = new Song();
+        this.songFile = null;
         this.loading = false;
     }).catch((err:any) => {
       this.loading = false;  
     });
 
-    this.newSong = new Song();
-    this.songFile = null;
   }
 
   selectSongToUpload(event:any): void {
