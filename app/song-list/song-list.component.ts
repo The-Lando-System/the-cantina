@@ -31,27 +31,11 @@ export class SongListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.returnUser().then((user:User) => {}).catch((err:any) => {});
-    this.getSongs();
     this.listenForAlbumChange();
-  }
-
-  getSongs(): void {
-    
-    this.loading = true;
-
-    this.songSvc.getSongs()
-    .then((songs:Song[]) => {
-      this.songs = songs;
-      this.bcaster.broadcast("SONG_SELECTED",this.songs[0].id);
-      this.loading = false;
-    }).catch((res:any) => {
-      this.loading = false;
-    });
   }
 
   selectSong(song:Song) {
     event.preventDefault();
-
     this.bcaster.broadcast("SONG_SELECTED",song.id);
   }
 
@@ -92,6 +76,7 @@ export class SongListComponent implements OnInit {
       this.songSvc.getSongsByAlbumId(albumId)
       .then((songs:Song[]) => {
         this.songs = songs;
+        this.selectSong(this.songs[0]);
         this.loading = false;
       }).catch((res:any) => {
         this.loading = false;

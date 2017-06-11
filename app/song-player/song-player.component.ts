@@ -13,15 +13,14 @@ import { Song } from '../song/song';
 })
 export class SongPlayerComponent implements OnInit {
 
-  private song: Song;
-  private audio: any;
+  private song: Song = new Song();
+  private audio: any = {};
   private loading: boolean = false;
   
   constructor(
     private userService: UserService,
     private songSvc: SongService,
-    private bcaster: Broadcaster,
-    private zone: NgZone
+    private bcaster: Broadcaster
   ){}
 
   ngOnInit(): void {
@@ -37,6 +36,7 @@ export class SongPlayerComponent implements OnInit {
   listenForSelectedSong(): void {
     this.bcaster.on<string>("SONG_SELECTED")
     .subscribe(songId => {
+      this.loading = false;
       this.initAudioBySongId(songId);
     });
   }
@@ -48,7 +48,6 @@ export class SongPlayerComponent implements OnInit {
       this.audio = document.getElementById('my-audio');
       this.audio.src = this.song.url;
       this.audio.load();
-      this.loading = false;
     }).catch((err:any) => {
       this.loading = false;
     });
