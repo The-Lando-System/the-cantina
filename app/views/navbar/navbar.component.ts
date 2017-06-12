@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, User, Broadcaster } from 'sarlacc-angular-client';
-import { Globals } from '../globals';
+import { Globals } from '../../services/globals';
 
 @Component({
   moduleId: module.id,

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService, Broadcaster, User } from 'sarlacc-angular-client';
 
-import { SongService } from '../song/song.service';
-import { Song } from '../song/song';
+import { SongService } from '../../services/song.service';
+import { Song } from '../../models/song/song';
 
-import { AlbumService } from '../album/album.service';
-import { Album } from '../album/album';
+import { AlbumService } from '../../services/album.service';
+import { Album } from '../../models/album/album';
 
 @Component({
   moduleId: module.id,

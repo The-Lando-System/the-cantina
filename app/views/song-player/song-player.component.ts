@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService, Broadcaster, User } from 'sarlacc-angular-client';
 
-import { SongService } from '../song/song.service';
-import { Song } from '../song/song';
+import { SongService } from '../../services/song.service';
+import { Song } from '../../models/song/song';
 
 @Component({
   moduleId: module.id,

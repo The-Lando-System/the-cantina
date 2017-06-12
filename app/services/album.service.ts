@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { UserService } from 'sarlacc-angular-client';
 
-import { Globals } from '../globals';
+import { Globals } from './globals';
 
-import { Album } from './album';
+import { Album } from '../models/album/album';
 
 @Injectable()
 export class AlbumService {

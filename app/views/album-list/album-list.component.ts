@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Broadcaster, UserService } from 'sarlacc-angular-client';
 
-import { AlbumService } from '../album/album.service';
-import { Album } from '../album/album';
-
-import { Globals } from '../globals';
+import { AlbumService } from '../../services/album.service';
+import { Album } from '../../models/album/album';
 
 @Component({
   moduleId: module.id,

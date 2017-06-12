@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService, Broadcaster, User } from 'sarlacc-angular-client';
 
-import { SongService } from '../song/song.service';
-import { Song } from '../song/song';
-
-import { Globals } from '../globals';
+import { SongService } from '../../services/song.service';
+import { Song } from '../../models/song/song';
 
 @Component({
   moduleId: module.id,
@@ -25,7 +23,6 @@ export class SongListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private songSvc: SongService,
-    private globals: Globals,
     private bcaster: Broadcaster
   ){}
 

@@ -7,24 +7,23 @@ import 'hammerjs/hammer.js';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import { Logger } from 'angular2-logger/core';
 import { ChartsModule } from 'ng2-charts';
-
 import { UserService, Broadcaster } from 'sarlacc-angular-client';
-import { AppComponent }  from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginComponent } from './login/login.component';
-import { SongPlayerComponent } from './song-player/song-player.component';
-import { SongListComponent } from './song-list/song-list.component';
-import { UploaderComponent } from './uploader/uploader.component';
-import { SongEditorComponent } from './song-editor/song-editor.component';
-import { AlbumListComponent } from './album-list/album-list.component';
-import { AlbumEditorComponent } from './album-editor/album-editor.component';
-import { AlbumCreatorComponent } from './album-creator/album-creator.component';
 
-import { LoadingBarComponent } from './common/loading-bar/loading-bar.component';
-import { SoundWavesComponent } from './common/sound-waves/sound-waves.component';
+import { AppComponent }  from './views/app.component';
+import { HomeComponent } from './views/home/home.component';
+import { NavbarComponent } from './views/navbar/navbar.component';
+import { LoginComponent } from './views/login/login.component';
+import { SongPlayerComponent } from './views/song-player/song-player.component';
+import { SongListComponent } from './views/song-list/song-list.component';
+import { UploaderComponent } from './views/uploader/uploader.component';
+import { SongEditorComponent } from './views/song-editor/song-editor.component';
+import { AlbumListComponent } from './views/album-list/album-list.component';
+import { AlbumEditorComponent } from './views/album-editor/album-editor.component';
+import { AlbumCreatorComponent } from './views/album-creator/album-creator.component';
+import { LoadingBarComponent } from './views/common/loading-bar/loading-bar.component';
+import { SoundWavesComponent } from './views/common/sound-waves/sound-waves.component';
 
-import { Globals } from './globals';
+import { Globals } from './services/globals';
 
 @NgModule({
   imports: [
