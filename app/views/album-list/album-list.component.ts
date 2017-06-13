@@ -26,25 +26,12 @@ export class AlbumListComponent implements OnInit {
   ngOnInit(): void {
     this.userSvc.returnUser().then((res:any) => {}).catch((err:any) => {});
     this.getAlbums();
-    this.listenForNewAlbums();
-    this.listenForUpdatedAlbums();
-    this.listenForUpdatedSong();
+
+    this.listenForUpdates();
   }
 
-  listenForNewAlbums(): void {
-    this.bcaster.on<any>("ALBUM_CREATED").subscribe( res => {
-      this.getAlbums();
-    });
-  }
-
-  listenForUpdatedAlbums(): void {
-    this.bcaster.on<any>("ALBUM_UPDATED").subscribe( res => {
-      this.getAlbums();
-    });
-  }
-
-  listenForUpdatedSong(): void {
-    this.bcaster.on<any>("SONG_UPDATED").subscribe( res => {
+  private listenForUpdates(): void {
+    this.bcaster.onAny<any>(['ALBUM_CREATED','ALBUM_UPDATED','SONG_UPDATED']).subscribe( res => {
       this.getAlbums();
     });
   }
