@@ -4,6 +4,11 @@ import { UserService, Broadcaster, User } from 'sarlacc-angular-client';
 import { SongService } from '../../services/song.service';
 import { Song } from '../../models/song/song';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/from';
+
 @Component({
   moduleId: module.id,
   selector: 'song-list',
@@ -13,12 +18,16 @@ import { Song } from '../../models/song/song';
 })
 export class SongListComponent implements OnInit {
 
-  private songs: Song[];
-  private loading = false;
+  private songs: Observable<Song>;
+  private songsArr: Song[] = [];
+  
+  private songFilter:string = '';
 
   private songToEdit: Song;
 
   private currentAlbumId: string;
+
+  private loading = false;
 
   constructor(
     private userService: UserService,
@@ -52,7 +61,6 @@ export class SongListComponent implements OnInit {
     }).catch((err:any) => {
         this.loading = false;
     });
-
   }
 
   isUserAdmin(): boolean {
@@ -68,31 +76,45 @@ export class SongListComponent implements OnInit {
   listenForAlbumChange(): void {
     this.bcaster.on<any>("ALBUM_SELECTED")
     .subscribe(albumId => {
-      this.loading = true;
       this.currentAlbumId = albumId;
-      this.songSvc.getSongsByAlbumId(albumId)
-      .then((songs:Song[]) => {
-        this.songs = songs;
-        this.selectSong(this.songs[0]);
-        this.loading = false;
-      }).catch((res:any) => {
-        this.loading = false;
-      });
+      this.getSongsByAlbumId(albumId);
+    });
+  }
+
+  getSongsByAlbumId(albumId:string): void {
+    this.loading = true;
+    this.songSvc.getSongsByAlbumId(albumId)
+    .subscribe((songs:Song[]) => {
+      this.songs = Observable.from(songs);
+      this.songsArr = songs;
+      this.selectSong(songs[0]);
+      this.loading = false;
+    });
+  }
+
+  filter(term:string): void {
+    this.songsArr = [];
+    this.songs.filter((song:Song) => {
+      return song.name.toLowerCase().includes(term.toLowerCase());
+    }).map((song:Song) => {
+      return song;
+    }).subscribe((song:Song) => {
+      this.songsArr.push(song);
     });
   }
 
   private removeSongFromSongs(songId:string){
-    for(var i=0; i<this.songs.length; i++){
-      if (this.songs[i].id === songId){
-        this.songs.splice(i,1);
+    for(var i=0; i<this.songsArr.length; i++){
+      if (this.songsArr[i].id === songId){
+        this.songsArr.splice(i,1);
       }
     }
   }
 
   private updateSong(song:Song){
-    for(var i=0; i<this.songs.length; i++){
-      if (this.songs[i].id === song.id){
-        this.songs[i] = song;
+    for(var i=0; i<this.songsArr.length; i++){
+      if (this.songsArr[i].id === song.id){
+        this.songsArr[i] = song;
       }
     }
   }

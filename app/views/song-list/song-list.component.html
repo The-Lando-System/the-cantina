@@ -1,5 +1,6 @@
+<input type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Search For Song" (keyup)="filter(songFilter)" [(ngModel)]="songFilter">
 <ul *ngIf="!loading" class="list-group">
-  <li *ngFor="let song of songs" (click)="selectSong(song)" class="list-group-item justify-content-between">
+  <li *ngFor="let song of songsArr" (click)="selectSong(song)" class="list-group-item justify-content-between">
     {{song.name}}
     <span *ngIf="isUserAdmin()" class="badge">
         <a href="#" class="btn btn-outline-secondary" (click)="editSong(song)" data-toggle="modal" data-target="#songEditorModal">
@@ -10,6 +11,10 @@
         </a>
     </span>
   </li>
+</ul>
+
+<ul>
+    <li *ngFor="let name of filteredSongs">{{name}}</li>
 </ul>
 
 <div *ngIf="loading" class="card card-block">

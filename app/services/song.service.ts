@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { UserService } from 'sarlacc-angular-client';
+import { Observable } from 'rxjs/Observable';
 
 import { Globals } from './globals';
 
@@ -76,13 +77,13 @@ export class SongService {
     });
   }
 
-  getSongsByAlbumId(albumId:string): Promise<Song[]> {
+  getSongsByAlbumId(albumId:string): Observable<Song[]> {
     return this.http.get(this.songUrl + 'album/' + albumId)
-    .toPromise()
-    .then((res:any) => {
+    .map((res:any) => {
       return res.json();
-    }).catch((err:any) => {
+    }).catch((err:Response) => {
       console.log(err);
+      return Observable.throw(err);
     });
   }
 
