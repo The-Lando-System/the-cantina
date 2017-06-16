@@ -1,7 +1,7 @@
 <input type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Search For Song" (keyup)="filter(songFilter)" [(ngModel)]="songFilter">
 <ul *ngIf="!loading" class="list-group">
-  <li *ngFor="let song of songsArr" (click)="selectSong(song)" class="list-group-item justify-content-between">
-    {{song.name}}
+  <li *ngFor="let song of songsArr; let i=index" (click)="selectSong(song)" class="list-group-item justify-content-between">
+    <span><strong>{{i+1}}. </strong>{{song.name}}</span>
     <span *ngIf="isUserAdmin()" class="badge">
         <div class="row">
             <div class="col" *ngIf="!songFilter">
@@ -31,6 +31,13 @@
   </li>
 </ul>
 <button *ngIf="isUserAdmin()" type="button" style="margin-top:10px;" (click)="saveSongOrder()" class="btn btn-secondary">Save Song Order</button>
+<div *ngIf="isUserAdmin() && orderMessage" style="margin-top:10px;" class="alert alert-success alert-dismissible fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <strong>Song order saved!</strong>
+</div>
+
 
 <div *ngIf="loading" class="card card-block">
     <div class="row">

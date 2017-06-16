@@ -29,6 +29,8 @@ export class SongListComponent implements OnInit {
 
   private loading = false;
 
+  private orderMessage:string = '';
+
   constructor(
     private userService: UserService,
     private songSvc: SongService,
@@ -105,6 +107,9 @@ export class SongListComponent implements OnInit {
 
   saveSongOrder(): void {
 
+    this.loading = true;
+    this.orderMessage = '';
+
     let songIds = [];
 
     for (let song of this.songsArr) {
@@ -112,7 +117,10 @@ export class SongListComponent implements OnInit {
     }
 
     this.songSvc.saveSongOrder(this.currentAlbumId,songIds)
-    .subscribe((res:any) => {});
+    .subscribe((res:any) => {
+      this.loading = false;
+      this.orderMessage = 'Order saved!';
+    });
   }
 
   // lower index
