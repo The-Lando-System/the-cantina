@@ -87,4 +87,14 @@ export class SongService {
     });
   }
 
+  saveSongOrder(albumId:string, songIds:string[]): Observable<void> {
+    return this.http.post(this.songUrl + 'order/' + albumId, songIds, {headers: this.userSvc.getAuthHeaders()})
+    .map((res:any) => {
+      return res.json();
+    }).catch((err:Response) => {
+      console.log(err);
+      return Observable.throw(err);
+    });
+  }
+
 }

@@ -3,19 +3,34 @@
   <li *ngFor="let song of songsArr" (click)="selectSong(song)" class="list-group-item justify-content-between">
     {{song.name}}
     <span *ngIf="isUserAdmin()" class="badge">
-        <a href="#" class="btn btn-outline-secondary" (click)="editSong(song)" data-toggle="modal" data-target="#songEditorModal">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-        </a>
-        <a href="#" class="btn btn-outline-danger" (click)="deleteSong(song)">
-            <i class="fa fa-trash-o" aria-hidden="true"></i>
-        </a>
+        <div class="row">
+            <div class="col" *ngIf="!songFilter">
+                <div class="row">
+                    <a href="#" (click)="moveUp(song)">
+                        <i class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="row">
+                    <a href="#" (click)="moveDown(song)">
+                        <i class="fa fa-arrow-down fa-2x" aria-hidden="true"></i>
+                    </a>    
+                </div>
+            </div>
+            <div class="col">
+                <a href="#" class="btn btn-outline-info" (click)="editSong(song)" data-toggle="modal" data-target="#songEditorModal">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="col">
+                <a href="#" class="btn btn-outline-danger" (click)="deleteSong(song)">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
     </span>
   </li>
 </ul>
-
-<ul>
-    <li *ngFor="let name of filteredSongs">{{name}}</li>
-</ul>
+<button *ngIf="isUserAdmin()" type="button" style="margin-top:10px;" (click)="saveSongOrder()" class="btn btn-secondary">Save Song Order</button>
 
 <div *ngIf="loading" class="card card-block">
     <div class="row">

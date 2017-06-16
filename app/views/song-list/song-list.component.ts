@@ -103,6 +103,60 @@ export class SongListComponent implements OnInit {
     });
   }
 
+  saveSongOrder(): void {
+
+    let songIds = [];
+
+    for (let song of this.songsArr) {
+      songIds.push(song.id);
+    }
+
+    this.songSvc.saveSongOrder(this.currentAlbumId,songIds)
+    .subscribe((res:any) => {});
+  }
+
+  // lower index
+  moveUp(song:Song): void {
+
+    let idx = 0;
+    for (let i=0; i<this.songsArr.length; i++) {
+      if (this.songsArr[i].id === song.id){
+        idx = i;
+        break;
+      }
+    }
+
+    if (idx === 0) {
+      return;
+    }
+
+    this.songsArr.splice(idx,1);
+    idx--;
+    this.songsArr.splice(idx,0,song);
+
+  }
+
+  // higher index
+  moveDown(song:Song): void {
+    
+    let idx = 0;
+    for (let i=0; i<this.songsArr.length; i++) {
+      if (this.songsArr[i].id === song.id){
+        idx = i;
+        break;
+      }
+    }
+    
+    if ((this.songsArr.length-1) === idx) {
+      return;
+    }
+    
+    this.songsArr.splice(idx,1);
+    idx++;
+    this.songsArr.splice(idx,0,song);
+
+  }
+
   private removeSongFromSongs(songId:string){
     for(var i=0; i<this.songsArr.length; i++){
       if (this.songsArr[i].id === songId){
