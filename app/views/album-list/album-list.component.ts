@@ -4,12 +4,14 @@ import { Broadcaster, UserService } from 'sarlacc-angular-client';
 import { AlbumService } from '../../services/album.service';
 import { Album } from '../../models/album/album';
 
+import { SongQueueService } from '../../services/song-queue.service';
+
 @Component({
   moduleId: module.id,
   selector: 'album-list',
   templateUrl: 'album-list.component.html',
   styleUrls: [ 'album-list.component.css' ],
-  providers: [ AlbumService ]
+  providers: [ AlbumService, SongQueueService ]
 })
 export class AlbumListComponent implements OnInit {
 
@@ -20,7 +22,8 @@ export class AlbumListComponent implements OnInit {
   constructor(
     private albumSvc: AlbumService,
     private bcaster: Broadcaster,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private songQueueSvc: SongQueueService
   ){}
 
   ngOnInit(): void {
@@ -94,7 +97,7 @@ export class AlbumListComponent implements OnInit {
   }
 
   playAlbum(album:Album): void {
-    
+
   }
 
   isAdmin(): boolean {
