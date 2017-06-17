@@ -93,6 +93,10 @@ export class AlbumListComponent implements OnInit {
 
   }
 
+  playAlbum(album:Album): void {
+    
+  }
+
   isAdmin(): boolean {
     return this.userSvc.isAdminForApp('the-cantina');
   }

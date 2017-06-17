@@ -8,7 +8,7 @@
         <div *ngIf="!loading">
             <div class="row">
                 <div class="col">
-                    <h1 class="display-3">{{selectedAlbum.name}}</h1>
+                    <h1 id="selectedAlbumName" class="display-3" title="Play Album" (click)="playAlbum(selectedAlbum)">{{selectedAlbum.name}}</h1>
                     <p class="lead">{{selectedAlbum.description}}</p>
                 </div>
             </div>

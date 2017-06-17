@@ -18,3 +18,8 @@
 i {
     cursor: pointer;
 }
+
+#selectedAlbumName:hover {
+    cursor: pointer;
+    color: #dbfce6;
+}
