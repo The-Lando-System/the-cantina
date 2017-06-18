@@ -4,6 +4,9 @@ import { Broadcaster, UserService } from 'sarlacc-angular-client';
 import { AlbumService } from '../../services/album.service';
 import { Album } from '../../models/album/album';
 
+import { SongService } from '../../services/song.service';
+import { Song } from '../../models/song/song';
+
 import { SongQueueService } from '../../services/song-queue.service';
 
 @Component({
@@ -11,7 +14,7 @@ import { SongQueueService } from '../../services/song-queue.service';
   selector: 'album-list',
   templateUrl: 'album-list.component.html',
   styleUrls: [ 'album-list.component.css' ],
-  providers: [ AlbumService, SongQueueService ]
+  providers: [ AlbumService, SongService ]
 })
 export class AlbumListComponent implements OnInit {
 
@@ -23,7 +26,8 @@ export class AlbumListComponent implements OnInit {
     private albumSvc: AlbumService,
     private bcaster: Broadcaster,
     private userSvc: UserService,
-    private songQueueSvc: SongQueueService
+    private songQueueSvc: SongQueueService,
+    private songSvc: SongService
   ){}
 
   ngOnInit(): void {
@@ -98,6 +102,15 @@ export class AlbumListComponent implements OnInit {
 
   playAlbum(album:Album): void {
 
+    this.songSvc.getSongsByAlbumId(album.id)
+    .subscribe((songs:Song[]) => {
+      this.songQueueSvc.clearQueue();
+      for (let song of songs) {
+        this.songQueueSvc.addSongToQueue(song.id);
+      }
+      this.songQueueSvc.playQueue();
+    });
+    
   }
 
   isAdmin(): boolean {

@@ -65,4 +65,8 @@ export class SongQueueService implements OnInit {
     }
   }
 
+  getSongsInQueue(): string[] {
+    return this.songQueue;
+  }
+
 }

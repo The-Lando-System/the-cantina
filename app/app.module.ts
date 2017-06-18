@@ -22,6 +22,9 @@ import { AlbumEditorComponent } from './views/album-editor/album-editor.componen
 import { AlbumCreatorComponent } from './views/album-creator/album-creator.component';
 import { LoadingBarComponent } from './views/common/loading-bar/loading-bar.component';
 import { SoundWavesComponent } from './views/common/sound-waves/sound-waves.component';
+import { SongQueueComponent } from './views/song-queue/song-queue.component';
+
+import { SongQueueService } from './services/song-queue.service';
 
 import { Globals } from './services/globals';
 
@@ -55,14 +58,16 @@ import { Globals } from './services/globals';
     SoundWavesComponent,
     AlbumListComponent,
     AlbumEditorComponent,
-    AlbumCreatorComponent
+    AlbumCreatorComponent,
+    SongQueueComponent
   ],
   providers: [
     Logger,
     CookieService,
     Broadcaster,
     UserService,
-    Globals
+    Globals,
+    SongQueueService
   ],
   bootstrap: [ AppComponent ]
 })
