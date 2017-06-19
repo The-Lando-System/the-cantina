@@ -39,6 +39,7 @@ export class SongQueueService implements OnInit {
   }
 
   playSong(song:Song): void {
+    this.removeFromQueue(song);
     this.bcaster.broadcast(this.PLAY, song);
   }
 
@@ -59,7 +60,6 @@ export class SongQueueService implements OnInit {
   }
 
   playNextSong(completedSong:Song): void {
-    this.removeFromQueue(completedSong);
     if (this.songQueue.length > 0){
       this.playSong(this.songQueue[0]);
     }
