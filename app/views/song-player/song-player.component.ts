@@ -46,9 +46,9 @@ export class SongPlayerComponent implements OnInit {
   }
 
   listenForSongToPlay(): void {
-    this.bcaster.on<string>(this.songQueueSvc.PLAY)
-    .subscribe(songId => {
-      this.initAudioBySongId(songId, true);
+    this.bcaster.on<Song>(this.songQueueSvc.PLAY)
+    .subscribe(song => {
+      this.initAudioBySongId(song.id, true);
     });
   }
 
@@ -64,10 +64,10 @@ export class SongPlayerComponent implements OnInit {
         this.audio.play();
 
         let sqs = this.songQueueSvc;
-        let currentSongId = this.song.id;
+        let currentSong = this.song;
 
         this.audio.addEventListener('ended',function() {
-          sqs.playNextSong(currentSongId);
+          sqs.playNextSong(currentSong);
         });
       }
 

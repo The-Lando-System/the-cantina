@@ -26,16 +26,18 @@ export class SongQueueComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSongsInQueue();
+    this.listenForSongs();
   }
 
   getSongsInQueue(): void {
-    let songIds = this.songQueueSvc.getSongsInQueue();
-    for (let songId of songIds) {
-      this.songSvc.getSongById(songId)
-      .then((song:Song) => {
-        this.songs.push(song);
-      }).catch((err:any) => {});
-    }
+    this.songs = this.songQueueSvc.getSongsInQueue();
+  }
+
+  listenForSongs(): void {
+    this.bcaster.onAny([this.songQueueSvc.ADDED, this.songQueueSvc.REMOVED])
+    .subscribe(() => {
+      this.getSongsInQueue();
+    });
   }
 
 }

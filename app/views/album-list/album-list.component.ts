@@ -101,16 +101,12 @@ export class AlbumListComponent implements OnInit {
   }
 
   playAlbum(album:Album): void {
-
     this.songSvc.getSongsByAlbumId(album.id)
     .subscribe((songs:Song[]) => {
       this.songQueueSvc.clearQueue();
-      for (let song of songs) {
-        this.songQueueSvc.addSongToQueue(song.id);
-      }
+      this.songQueueSvc.addSongsToQueue(songs);
       this.songQueueSvc.playQueue();
     });
-    
   }
 
   isAdmin(): boolean {

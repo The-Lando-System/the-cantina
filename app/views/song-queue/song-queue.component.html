@@ -6,22 +6,10 @@
         <small>5 Songs</small>
       </div>
     </a>
-    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <a *ngFor="let song of songs" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
       <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Smittywerbenjagermanjensen</h5>
+        <h5 class="mb-1">{{song.name}}</h5>
         <small>Now Playing</small>
-      </div>
-    </a>
-    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Another Song</h5>
-        <small></small>
-      </div>
-    </a>
-    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">Another Song 2</h5>
-        <small></small>
       </div>
     </a>
   </div>

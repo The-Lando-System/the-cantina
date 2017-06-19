@@ -1,13 +1,17 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Broadcaster } from 'sarlacc-angular-client';
 
+import { Song } from '../models/song/song';
+
 @Injectable()
 export class SongQueueService implements OnInit {
 
   public PLAY:string = 'PLAY_SONG';
   public NEXT:string = 'NEXT_SONG';
+  public ADDED:string = 'ADD_SONG';
+  public REMOVED:string = 'REMOVE_SONG';
 
-  private songQueue: string[] = [];
+  private songQueue: Song[] = [];
 
   constructor(
     private bcaster: Broadcaster
@@ -17,13 +21,14 @@ export class SongQueueService implements OnInit {
     this.listenForSongComplete();
   }
 
-  addSongToQueue(songId:string): void {
-    this.songQueue.push(songId);
+  addSongToQueue(song:Song): void {
+    this.songQueue.push(song);
+    this.bcaster.broadcast(this.ADDED);
   }
 
-  addSongsToQueue(songIds:string[]): void {
-    for(let songId of songIds) {
-      this.songQueue.push(songId)
+  addSongsToQueue(songs:Song[]): void {
+    for(let song of songs) {
+      this.addSongToQueue(song);
     }
   }
 
@@ -33,39 +38,42 @@ export class SongQueueService implements OnInit {
     }
   }
 
-  playSong(songId:string): void {
-    this.bcaster.broadcast(this.PLAY, songId);
+  playSong(song:Song): void {
+    this.bcaster.broadcast(this.PLAY, song);
   }
 
-  nextSong(songId:string): void {
-    this.bcaster.broadcast(this.NEXT, songId);
+  nextSong(song:string): void {
+    this.bcaster.broadcast(this.NEXT, song);
   }
 
   clearQueue(): void {
     this.songQueue = [];
+    this.bcaster.broadcast(this.REMOVED);
   }
 
   listenForSongComplete(): void {
-    this.bcaster.on(this.NEXT)
-    .subscribe((songId:string) => {
-      this.playNextSong(songId);
+    this.bcaster.on<Song>(this.NEXT)
+    .subscribe((song:Song) => {
+      this.playNextSong(song);
     });
   }
 
-  playNextSong(completedSongId:string): void {
-    this.removeFromQueue(completedSongId);
+  playNextSong(completedSong:Song): void {
+    this.removeFromQueue(completedSong);
     this.playSong(this.songQueue[0]);
   }
 
-  removeFromQueue(songId:string): void {
+  removeFromQueue(song:Song): void {
     for(var i=0; i<this.songQueue.length; i++){
-      if (this.songQueue[i] === songId){
+      if (this.songQueue[i].id === song.id){
         this.songQueue.splice(i,1);
+        this.bcaster.broadcast(this.REMOVED);
+        return;
       }
     }
   }
 
-  getSongsInQueue(): string[] {
+  getSongsInQueue(): Song[] {
     return this.songQueue;
   }
 
