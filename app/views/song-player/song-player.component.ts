@@ -16,7 +16,6 @@ import { SongQueueService } from '../../services/song-queue.service';
 export class SongPlayerComponent implements OnInit {
 
   private song: Song = new Song();
-  private audio: any = {};
   private loading: boolean = false;
   
   constructor(
@@ -56,24 +55,22 @@ export class SongPlayerComponent implements OnInit {
     this.songSvc.getSongById(songId)
     .then((song:Song) => {
       this.song = song;
-      this.audio = document.getElementById('my-audio');
-      this.audio.src = this.song.url;
-      this.audio.load();
+      let audio:any = document.getElementById('my-audio');
+      audio.src = this.song.url;
+      audio.load();
 
       if (shouldPlay) {
-        this.audio.play();
-
-        let sqs = this.songQueueSvc;
-        let currentSong = this.song;
-
-        this.audio.addEventListener('ended',function() {
-          sqs.playNextSong(currentSong);
-        });
+        audio.play();
+        audio.onended = this.playNext.bind(this);
       }
 
     }).catch((err:any) => {
       this.loading = false;
     });
+  }
+
+  playNext(): void {
+    this.songQueueSvc.playNextSong(this.song);
   }
 
   getSongArt(): string {

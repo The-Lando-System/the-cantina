@@ -60,7 +60,9 @@ export class SongQueueService implements OnInit {
 
   playNextSong(completedSong:Song): void {
     this.removeFromQueue(completedSong);
-    this.playSong(this.songQueue[0]);
+    if (this.songQueue.length > 0){
+      this.playSong(this.songQueue[0]);
+    }
   }
 
   removeFromQueue(song:Song): void {
