@@ -33,6 +33,11 @@ export class SongQueueComponent implements OnInit {
     this.songs = this.songQueueSvc.getSongsInQueue();
   }
 
+  removeSong(song:Song): void {
+    this.songQueueSvc.removeFromQueue(song);
+    this.getSongsInQueue();
+  }
+
   listenForSongs(): void {
     this.bcaster.onAny([this.songQueueSvc.ADDED, this.songQueueSvc.REMOVED])
     .subscribe(() => {

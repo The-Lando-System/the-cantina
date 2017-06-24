@@ -6,7 +6,8 @@
             </div>
             <div class="col-9" style="width: 100%; overflow: auto">
                 <h3 *ngIf="song">{{song.name}}</h3>
-                <audio id="my-audio" controls></audio>
+                <h3 *ngIf="!song">Select a song to play</h3>
+                <audio id="my-audio" [ngClass]="hidden" controls></audio>
             </div>
         </div>
         <div *ngIf="loading" class="row">

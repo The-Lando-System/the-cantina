@@ -15,8 +15,9 @@ import { SongQueueService } from '../../services/song-queue.service';
 })
 export class SongPlayerComponent implements OnInit {
 
-  private song: Song = new Song();
+  private song: Song;
   private loading: boolean = false;
+  private hidden: string = 'hidden';
   
   constructor(
     private userService: UserService,
@@ -26,7 +27,6 @@ export class SongPlayerComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.loading = true;
     this.userService.returnUser().then((user:User) => {}).catch((err:any) => {});
     this.listenForSongToPlay();
   }
@@ -46,12 +46,12 @@ export class SongPlayerComponent implements OnInit {
     this.songSvc.getSongById(songId)
     .then((song:Song) => {
       this.song = song;
+      this.hidden = '';
       let audio:any = document.getElementById('my-audio');
       audio.src = this.song.url;
       audio.load();
       audio.play();
       audio.onended = this.playNext.bind(this);
-
     }).catch((err:any) => {
       this.loading = false;
     });

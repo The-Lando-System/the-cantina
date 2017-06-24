@@ -16,3 +16,7 @@ audio {
 i {
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}

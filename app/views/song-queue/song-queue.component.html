@@ -7,9 +7,12 @@
       </div>
     </a>
     <a *ngFor="let song of songs" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{song.name}}</h5>
-        <small>
+      <div class="d-flex w-100 flex-row justify-content-start">
+        <a href="#" (click)="removeSong(song)">
+          <i class="fa fa-minus" style="color:black;" aria-hidden="true"></i>
+        </a>
+        <h5 style="margin-left:10px;">{{song.name}}</h5>
+        <small class="ml-auto">
           <span *ngIf="song.id === songs[0].id">Up Next</span>
         </small>
       </div>

@@ -45,11 +45,6 @@ export class SongListComponent implements OnInit {
     this.listenForAlbumChange();
   }
 
-  selectSong(song:Song) {
-    event.preventDefault();
-    this.bcaster.broadcast("SONG_SELECTED",song.id);
-  }
-
   deleteSong(song:Song) {
     event.preventDefault();
 
@@ -92,7 +87,6 @@ export class SongListComponent implements OnInit {
     .subscribe((songs:Song[]) => {
       this.songs = Observable.from(songs);
       this.songsArr = songs;
-      this.selectSong(songs[0]);
       this.loading = false;
     });
   }
