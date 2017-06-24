@@ -28,7 +28,6 @@ export class SongPlayerComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.userService.returnUser().then((user:User) => {}).catch((err:any) => {});
-    this.listenForSelectedSong();
     this.listenForSongToPlay();
   }
 
@@ -36,33 +35,22 @@ export class SongPlayerComponent implements OnInit {
     return this.song.url + '?cb=' + this.song.id;
   }
 
-  listenForSelectedSong(): void {
-    this.bcaster.on<string>("SONG_SELECTED")
-    .subscribe(songId => {
-      this.loading = false;
-      this.initAudioBySongId(songId, false);
-    });
-  }
-
   listenForSongToPlay(): void {
     this.bcaster.on<Song>(this.songQueueSvc.PLAY)
     .subscribe(song => {
-      this.initAudioBySongId(song.id, true);
+      this.initAudioBySongId(song.id);
     });
   }
 
-  initAudioBySongId(songId:string, shouldPlay:boolean): void {
+  initAudioBySongId(songId:string): void {
     this.songSvc.getSongById(songId)
     .then((song:Song) => {
       this.song = song;
       let audio:any = document.getElementById('my-audio');
       audio.src = this.song.url;
       audio.load();
-
-      if (shouldPlay) {
-        audio.play();
-        audio.onended = this.playNext.bind(this);
-      }
+      audio.play();
+      audio.onended = this.playNext.bind(this);
 
     }).catch((err:any) => {
       this.loading = false;

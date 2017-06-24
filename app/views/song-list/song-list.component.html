@@ -1,7 +1,21 @@
 <input type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Search For Song" (keyup)="filter(songFilter)" [(ngModel)]="songFilter">
 <ul *ngIf="!loading" class="list-group">
-  <li *ngFor="let song of songsArr; let i=index" (click)="selectSong(song)" class="list-group-item justify-content-between">
+  <li *ngFor="let song of songsArr; let i=index" class="list-group-item justify-content-between">
     <span><strong>{{i+1}}. </strong>{{song.name}}</span>
+    <span *ngIf="!isUserAdmin()" class="badge">
+        <div class="row">
+            <div class="col">
+                <a href="#" (click)="addSongToQueue(song)" title="Add Song to Queue">
+                    <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="col">
+                <a href="#" (click)="playSong(song)" title="Play Song">
+                    <i class="fa fa-play-circle fa-2x" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </span>
     <span *ngIf="isUserAdmin()" class="badge">
         <div class="row">
             <div class="col" *ngIf="!songFilter">

@@ -4,6 +4,8 @@ import { UserService, Broadcaster, User } from 'sarlacc-angular-client';
 import { SongService } from '../../services/song.service';
 import { Song } from '../../models/song/song';
 
+import { SongQueueService } from '../../services/song-queue.service';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -34,7 +36,8 @@ export class SongListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private songSvc: SongService,
-    private bcaster: Broadcaster
+    private bcaster: Broadcaster,
+    private songQueueSvc: SongQueueService
   ){}
 
   ngOnInit(): void {
@@ -163,6 +166,15 @@ export class SongListComponent implements OnInit {
     idx++;
     this.songsArr.splice(idx,0,song);
 
+  }
+
+  playSong(song:Song): void {
+    this.songQueueSvc.addSongToQueue(song);
+    this.songQueueSvc.playSong(song);
+  }
+
+  addSongToQueue(song:Song): void {
+    this.songQueueSvc.addSongToQueue(song);
   }
 
   private removeSongFromSongs(songId:string){
