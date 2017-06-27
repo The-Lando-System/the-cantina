@@ -1,13 +1,18 @@
 <div class="container-fluid">
     <div class="card card-block">
         <div *ngIf="!loading" class="row">
-            <div class="col-3" style="min-width: 75px; text-align: right">
+            <div class="col-2" style="min-width: 75px; text-align: right">
                 <img *ngIf="song" [src]="getSongArt()" width="75px" class="rounded" alt="song art">
             </div>
-            <div class="col-9" style="width: 100%; overflow: auto">
+            <div class="col-7" style="width: 100%; overflow: auto">
                 <h3 *ngIf="song">{{song.name}}</h3>
                 <h3 *ngIf="!song">Select a song to play</h3>
                 <audio id="my-audio" [ngClass]="hidden" controls></audio>
+            </div>
+            <div class="col-2" style="text-align:right">
+                <a *ngIf="song" href="#" (click)="playNext(song)">
+                    <i class="fa fa-step-forward fa-4x" style="color:#3a3a3a" aria-hidden="true"></i>
+                </a>
             </div>
         </div>
         <div *ngIf="loading" class="row">

@@ -1,7 +1,5 @@
 .card {
     width:100%;
-    max-width: 550px;
-    z-index:100;
     overflow: auto;
     margin-bottom: 50px;
     -webkit-box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
@@ -19,4 +17,8 @@ i {
 
 .hidden {
     display: none;
+}
+
+i.fa-step-forward:hover {
+    color: black!important;
 }
