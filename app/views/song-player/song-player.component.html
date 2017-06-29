@@ -8,6 +8,7 @@
                 <h3 *ngIf="song">{{song.name}}</h3>
                 <h3 *ngIf="!song">Select a song to play</h3>
                 <audio id="my-audio" [ngClass]="hidden" controls></audio>
+                <p *ngIf="song">Played <strong>{{playCount}}</strong> times</p>
             </div>
             <div class="col-2" style="text-align:right">
                 <a *ngIf="song" href="#" (click)="playNext(song)">

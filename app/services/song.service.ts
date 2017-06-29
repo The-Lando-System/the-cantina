@@ -97,4 +97,23 @@ export class SongService {
     });
   }
 
+  getSongPlayCount(songId:string): Observable<number> {
+    return this.http.get(this.songUrl + 'count/' + songId)
+    .map((res:any) => {
+      let playCount:any = res.json();
+      return playCount.playCounter;
+    }).catch((err:Response) => {
+      return Observable.throw(err);
+    })
+  }
+
+  incrementSongPlayCount(songId:string): Observable<void> {
+    return this.http.post(this.songUrl + 'count/' + songId, {})
+    .map((res:any) => {
+      return;
+    }).catch((err:Response) => {
+      return Observable.throw(err);
+    })
+  }
+
 }

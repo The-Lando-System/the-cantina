@@ -16,6 +16,7 @@ import { SongQueueService } from '../../services/song-queue.service';
 export class SongPlayerComponent implements OnInit {
 
   private song: Song;
+  private playCount: number = 0;
   private loading: boolean = false;
   private hidden: string = 'hidden';
   
@@ -39,6 +40,7 @@ export class SongPlayerComponent implements OnInit {
     this.bcaster.on<Song>(this.songQueueSvc.PLAY)
     .subscribe(song => {
       this.initAudioBySongId(song.id);
+      this.getSongPlayCount(song.id);
     });
   }
 
@@ -52,6 +54,7 @@ export class SongPlayerComponent implements OnInit {
       audio.load();
       audio.play();
       audio.onended = this.playNext.bind(this);
+      this.songSvc.incrementSongPlayCount(song.id).subscribe((res:any) => {});
     }).catch((err:any) => {
       this.loading = false;
     });
@@ -63,6 +66,13 @@ export class SongPlayerComponent implements OnInit {
 
   getSongArt(): string {
       return this.song.artUrl || "https://vignette3.wikia.nocookie.net/starwars/images/6/68/Bith-GOI.jpg/revision/latest/scale-to-width-down/160?cb=20131206104539";
+  }
+
+  getSongPlayCount(songId:string): void {
+    this.songSvc.getSongPlayCount(songId)
+    .subscribe((count:number) => {
+      this.playCount = count;
+    });
   }
 
 }
