@@ -1,9 +1,9 @@
 <input type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Search For Song" (keyup)="filter(songFilter)" [(ngModel)]="songFilter">
 <ul *ngIf="!loading" class="list-group">
-  <li *ngFor="let song of songsArr; let i=index" class="list-group-item justify-content-between">
+  <li on-mouseover="hoveredSongIdx = i" on-mouseleave="hoveredSongIdx = -1" *ngFor="let song of songsArr; let i=index" class="list-group-item justify-content-between" style="min-height: 60px;">
     <span><strong>{{i+1}}. </strong>{{song.name}}</span>
     <span *ngIf="!isUserAdmin()" class="badge">
-        <div class="row">
+        <div *ngIf="i === hoveredSongIdx" class="row">
             <div class="col">
                 <a href="#" (click)="addSongToQueue(song)" title="Add Song to Queue">
                     <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
