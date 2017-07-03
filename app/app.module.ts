@@ -23,6 +23,7 @@ import { AlbumCreatorComponent } from './views/album-creator/album-creator.compo
 import { LoadingBarComponent } from './views/common/loading-bar/loading-bar.component';
 import { SoundWavesComponent } from './views/common/sound-waves/sound-waves.component';
 import { SongQueueComponent } from './views/song-queue/song-queue.component';
+import { SeekBarComponent } from './views/common/seek-bar/seek-bar.component';
 
 import { SongQueueService } from './services/song-queue.service';
 
@@ -59,7 +60,8 @@ import { Globals } from './services/globals';
     AlbumListComponent,
     AlbumEditorComponent,
     AlbumCreatorComponent,
-    SongQueueComponent
+    SongQueueComponent,
+    SeekBarComponent
   ],
   providers: [
     Logger,

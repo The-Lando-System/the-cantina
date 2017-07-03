@@ -1,0 +1,230 @@
+
+#lightsaber .handle .buttplug, #lightsaber .handle .above-butt, #lightsaber .handle .other-gold-fuck:before, #lightsaber .handle .fin, #lightsaber .handle .fin:before {
+  background: -webkit-linear-gradient(top, #bfc0c0 20%, #8c8d8d 30%, #bfc0c0 50%, #bfc0c0 60%, #595a5a 90%);
+  background: linear-gradient(to bottom, #bfc0c0 20%, #8c8d8d 30%, #bfc0c0 50%, #bfc0c0 60%, #595a5a 90%);
+  border: 0.0625em solid #595a5a;
+  border-radius: .125em;
+}
+
+#lightsaber .handle .butt, #lightsaber .handle .coily-shit {
+  background: -webkit-linear-gradient(top, #262727 20%, #0d0d0d 25%, #262727 40%, #262727 45%, #0d0d0d 90%);
+  background: linear-gradient(to bottom, #262727 20%, #0d0d0d 25%, #262727 40%, #262727 45%, #0d0d0d 90%);
+  border: 0.0625em solid #0d0d0d;
+}
+#lightsaber {
+  position: relative;
+  margin-bottom: 2em;
+  height: 1em;
+}
+#lightsaber > * {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+}
+#lightsaber > *:before, #lightsaber > *:after {
+  content: "";
+  display: block;
+  position: absolute;
+}
+#lightsaber * {
+  height: inherit;
+}
+#lightsaber .progress {
+  /*background: #242a34;*/
+  width: 50%;
+  left: 10.75em;
+  top: -1em;
+  bottom: -1em;
+  margin: auto;
+  height: 1.5em;
+  width: 19.25em;
+  border-radius: 0 .75em .75em 0;
+}
+#lightsaber .progress .glow-shit {
+  /*width: 100%;*/
+  position: absolute;
+  left: -.3125em;
+  top: -1em;
+  bottom: -1em;
+  margin: auto;
+  /*-webkit-transition: all ease-in-out .5s;
+  transition: all ease-in-out .5s;*/
+  box-shadow: inset -0.25em 0 0.25em 0.25em #43ccfe, 0 0 0.25em 0 #43ccfe, 0 0 1em 0.0625em rgba(67, 204, 254, 0.5);
+  height: .875em;
+  background: #fff;
+  border-radius: 0 .5em .5em 0;
+}
+/*.no-js #lightsaber .progress .glow-shit {
+  -webkit-animation: growth 5s linear 1s infinite;
+          animation: growth 5s linear 1s infinite;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}*/
+
+/*input[type=range] {
+  -webkit-appearance: none;
+}*/
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+#lightsaber .handle > * {
+  position: absolute;
+  position: absolute;
+  bottom: -1em;
+  top: -1em;
+  margin: auto;
+}
+#lightsaber .handle > *:before, #lightsaber .handle > *:after {
+  content: "";
+  display: block;
+  position: absolute;
+}
+#lightsaber .handle .buttplug {
+  width: 1em;
+}
+#lightsaber .handle .buttplug:before {
+  height: .375em;
+  width: .5em;
+  margin: auto;
+  right: 0;
+  left: 0;
+  top: -.125em;
+  background: #f2f3f3;
+  border: 0.0625em solid #BFC0C0;
+  box-shadow: 0 0.875em 0 -0.0625em #f2f3f3, 0 0.875em 0 0 #BFC0C0;
+}
+#lightsaber .handle .butt {
+  width: 1.25em;
+  left: 1em;
+  border-radius: .125em;
+}
+#lightsaber .handle .butt:before {
+  width: .5em;
+  height: .5em;
+  border-radius: 50%;
+  background: -webkit-linear-gradient(#595a5a 0%, #262727 100%);
+  background: linear-gradient(#595a5a 0%, #262727 100%);
+  border: 0.0625em solid #262727;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  box-shadow: 0 0 0 0.0625em #0d0d0d, 0 0.0625em 0 0.125em #0d0d0d;
+}
+#lightsaber .handle .butt:after {
+  width: .25em;
+  height: .25em;
+  background: #0d0d0d;
+  border-radius: 50%;
+  right: 0;
+  left: 0;
+  bottom: .125em;
+  margin: 0 auto;
+}
+#lightsaber .handle .above-butt {
+  left: 2.25em;
+  width: 1.25em;
+}
+#lightsaber .handle .above-butt:before {
+  width: inherit;
+  right: -.125em;
+  left: -.125em;
+  margin: auto;
+  height: .625em;
+  top: -.5em;
+  border: 0.0625em solid #BFC0C0;
+  background: -webkit-linear-gradient(#595a5a 0%, #bfc0c0 75%);
+  background: linear-gradient(#595a5a 0%, #bfc0c0 75%);
+}
+#lightsaber .handle .coily-shit {
+  left: 3.5em;
+  width: 2.5em;
+  height: .875em;
+  background: -webkit-linear-gradient(#262727 0%, #262727 10%, #0d0d0d 50%, #262727 85%, #0d0d0d 100%);
+  background: linear-gradient(#262727 0%, #262727 10%, #0d0d0d 50%, #262727 85%, #0d0d0d 100%);
+}
+#lightsaber .handle .coily-shit:before, #lightsaber .handle .coily-shit:after {
+  height: 1.0625em;
+  bottom: -1em;
+  top: -1em;
+  margin: auto;
+}
+#lightsaber .handle .coily-shit:before {
+  background: -webkit-linear-gradient(#262727 0%, #0d0d0d 50%);
+  background: linear-gradient(#262727 0%, #0d0d0d 50%);
+  width: .25em;
+  border-radius: 0 .25em .25em 0;
+  border: 0.0625em solid #0d0d0d;
+  left: -.0625em;
+}
+#lightsaber .handle .coily-shit:after {
+  width: .125em;
+  left: .25em;
+  box-shadow: 0.25em 0 0 0 #0d0d0d, 0.5em 0 0 0 #0d0d0d, 0.75em 0 0 0 #0d0d0d, 1em 0 0 0 #0d0d0d, 1.25em 0 0 0 #0d0d0d, 1.5em 0 0 0 #0d0d0d, 1.75em 0 0 0 #0d0d0d, 2em 0 0 0 #0d0d0d;
+  background: #0d0d0d;
+}
+#lightsaber .handle .gold-fuck {
+  border-top: 0.0625em solid #a47d3d;
+  border-bottom: 0.0625em solid #a47d3d;
+  width: .75em;
+  height: .625em;
+  background: -webkit-linear-gradient(#e9dbc4 0%, #e9dbc4 10%, #a47d3d 50%, #e9dbc4 85%, #a47d3d 100%);
+  background: linear-gradient(#e9dbc4 0%, #e9dbc4 10%, #a47d3d 50%, #e9dbc4 85%, #a47d3d 100%);
+  left: 6em;
+}
+#lightsaber .handle .gold-fuck:before {
+  width: .5em;
+  height: 1em;
+  left: 100%;
+  background: -webkit-linear-gradient(#e9dbc4 0%, #e9dbc4 10%, #a47d3d 50%, #e9dbc4 85%, #a47d3d 100%);
+  background: linear-gradient(#e9dbc4 0%, #e9dbc4 10%, #a47d3d 50%, #e9dbc4 85%, #a47d3d 100%);
+  border: 0.0625em solid #a47d3d;
+  bottom: -1em;
+  top: -1em;
+  margin: auto;
+}
+#lightsaber .handle .other-gold-fuck {
+  height: .625em;
+  width: .5em;
+  background: -webkit-linear-gradient(#d18710 0%, #d18710 10%, #724a09 50%, #d18710 70%, #432b05 100%);
+  background: linear-gradient(#d18710 0%, #d18710 10%, #724a09 50%, #d18710 70%, #432b05 100%);
+  left: 7.25em;
+  border-top: 0.0625em solid #724a09;
+  border-bottom: 0.0625em solid #724a09;
+}
+#lightsaber .handle .other-gold-fuck:before {
+  border-right: 0;
+  left: 100%;
+  width: .25em;
+  height: .875em;
+  top: -1em;
+  bottom: -1em;
+  margin: auto;
+  border-radius: 0;
+}
+#lightsaber .handle .fin {
+  left: 8em;
+  width: .5em;
+  border-radius: 0;
+}
+#lightsaber .handle .fin:before, #lightsaber .handle .fin:after {
+  top: -1em;
+  bottom: -1em;
+  margin: auto;
+}
+#lightsaber .handle .fin:before {
+  width: .25em;
+  height: 1em;
+  border-radius: 0;
+  left: 100%;
+  height: 1.25em;
+}
+#lightsaber .handle .fin:after {
+  width: .125em;
+  background: #595a5a;
+  left: .5625em;
+  height: 1.5em;
+}
