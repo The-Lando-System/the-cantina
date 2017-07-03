@@ -18,8 +18,13 @@ export class SongPlayerComponent implements OnInit {
   private song: Song;
   private playCount: number = 0;
   private loading: boolean = false;
-  private hidden: string = 'hidden';
-  
+  private isPlaying: boolean = true;
+
+  // Audio controls
+  private audio: any = {};
+  private normalizedTime: number = 0;
+  private volume: number = 100;
+
   constructor(
     private userService: UserService,
     private songSvc: SongService,
@@ -48,16 +53,44 @@ export class SongPlayerComponent implements OnInit {
     this.songSvc.getSongById(songId)
     .then((song:Song) => {
       this.song = song;
-      this.hidden = '';
-      let audio:any = document.getElementById('my-audio');
-      audio.src = this.song.url;
-      audio.load();
-      audio.play();
-      audio.onended = this.playNext.bind(this);
+      this.audio = document.getElementById('my-audio');
+      this.audio.src = this.song.url;
+      this.audio.load();
+      this.audio.play();
+      this.isPlaying = true;
+      this.updateCurrentTime();
+      this.audio.onended = this.playNext.bind(this);
       this.songSvc.incrementSongPlayCount(song.id).subscribe((res:any) => {});
     }).catch((err:any) => {
       this.loading = false;
     });
+  }
+
+  updateCurrentTime(): void {
+    setInterval(() => {
+      if (this.audio){
+        this.normalizedTime = (this.audio.currentTime / this.audio.duration) * 100;
+      } else {
+        return;
+      }
+    }, 100);
+  }
+
+  updateVolume(newVolume:number): void {
+    console.log(newVolume);
+    if (this.audio) {
+      this.audio.volume = newVolume;
+    } else {
+      return;
+    }
+  }
+
+  play(): void {
+    this.audio.play();
+  }
+
+  pause(): void {
+    this.audio.pause();
   }
 
   playNext(): void {

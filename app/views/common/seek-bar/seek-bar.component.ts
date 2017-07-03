@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 
 @Component({
   moduleId: module.id,
@@ -9,18 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class SeekBarComponent implements OnInit{
 
   private position: string;
-  private seekVal: number;
+
+  @Input('seekVal')
+  set value(seekVal:number) {
+    this.seek(seekVal);
+  }
 
   constructor() {
-    this.seekVal = 0;
-    setInterval(() => {
-      if (this.seekVal === 100) {
-        return;
-      }
-      this.seekVal = this.seekVal + 1;
-      this.seek(this.seekVal);
-    }, 1000);
-    
+
   }
 
   ngOnInit(): void {
@@ -28,7 +24,6 @@ export class SeekBarComponent implements OnInit{
   }
 
   seek(value:number): void {
-    console.log(value);
     this.position = value + '%';
   }
 

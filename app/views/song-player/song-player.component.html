@@ -28,6 +28,8 @@
 
 
 
+<audio id="my-audio"></audio>
+
 <div class="card card-block">
     
     <!-- No Song Playing -->
@@ -43,11 +45,11 @@
     <div *ngIf="song" class="container-fluid" style="width:100%">
         
         <!-- Art and Title -->
-        <div class="row">
-            <div class="col-2">
-                <img [src]="getSongArt()" width="75px" class="rounded" alt="song art">
+        <div class="row song-header">
+            <div class="col-md-2" style="overflow:hidden">
+                <img [src]="getSongArt()" class="rounded" alt="song art" height="100px">
             </div>
-            <div class="col-10" style="overflow:auto;">
+            <div class="col-md-10" style="overflow:auto;">
                 <div class="row">
                     <h3>{{song.name}}</h3>
                 </div>
@@ -56,42 +58,42 @@
                 </div>
             </div>
         </div>
+
+        <!-- Seek Bar -->
+        <div class="row" style="margin-top: 30px;">
+            <seek-bar [(seekVal)]="normalizedTime"></seek-bar>
+        </div>
         
         <!-- Volume and Controls -->
         <div class="row">
-            <div class="col-1">
-                <i class="fa fa-volume-up" aria-hidden="true"></i>
-            </div>
-            <div class="col-3">
-                <input type="range" style="width: 100%">
-            </div>
-            <div class="col-2">
-                <a href="#" (click)="play(song)">
-                    <i class="fa fa-play-circle fa-2x" aria-hidden="true"></i>
+            <div class="col-md-1">
+                <a *ngIf="this.audio.volume > 0" href="#" (click)="updateVolume(0); volume = 0;">
+                    <i class="fa fa-volume-up fa-3x" aria-hidden="true"></i>
+                </a>
+                <a *ngIf="this.audio.volume === 0" href="#" (click)="updateVolume(1); volume = 100;">
+                    <i class="fa fa-volume-off fa-3x" aria-hidden="true"></i>
                 </a>
             </div>
-            <div class="col-2">
-                <a href="#" (click)="pause(song)">
-                    <i class="fa fa-pause fa-2x" aria-hidden="true"></i>
-                </a>
+            <div class="col-md-2">
+                <input type="range" style="width: 100%; margin-top:20px;" #ref min="0" max="100" [(ngModel)]="volume" (change)="updateVolume(ref.value / 100)">
             </div>
-            <div class="col-2">
-                <a href="#" (click)="playNext(song)">
-                    <i class="fa fa-step-forward fa-2x" aria-hidden="true"></i>
+            <div class="col-md-9">
+                <a *ngIf="!isPlaying" href="#" (click)="play(); isPlaying=true;" style="margin-left: 20px;">
+                    <i class="fa fa-play-circle fa-3x" aria-hidden="true"></i>
                 </a>
-            </div>
-            <div class="col-2">
-                <a href="#" (click)="download(song)">
-                    <i class="fa fa-download fa-2x" aria-hidden="true"></i>
+                <a *ngIf="isPlaying" href="#" (click)="pause(); isPlaying=false;" style="margin-left: 20px;">
+                    <i class="fa fa-pause fa-3x" aria-hidden="true"></i>
+                </a>
+                <a href="#" (click)="playNext()" style="margin-left: 20px;">
+                    <i class="fa fa-step-forward fa-3x" aria-hidden="true"></i>
+                </a>
+                <a href="{{song.url}}" style="margin-left: 20px;">
+                    <i class="fa fa-download fa-3x" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
 
-        <!-- Seek Bar -->
-        <div class="row">
-            <!--<input type="range" style="width: 100%">-->
-            <seek-bar></seek-bar>
-        </div>
+        
 
     </div>
 </div>
