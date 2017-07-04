@@ -17,3 +17,7 @@
 .song-action-icon {
     margin-left: 10px;
 }
+
+a:hover {
+    cursor: pointer;
+}

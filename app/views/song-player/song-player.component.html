@@ -1,21 +1,14 @@
 <audio id="my-audio"></audio>
 
-<div class="card card-block">
-    
-    <!-- No Song Playing -->
-    <div *ngIf="!song" class="container-fluid">
-        <div class="row">
-            <div class="col" style="text-align: center">
-                <h3>Select a song to play</h3>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="song" class="container-fluid" style="width:100%">        
-        <!-- Art and Title -->
-        <div class="row">
+<div style="margin-bottom:30px;">
+    <div class="container-fluid" style="width:100%">        
+        
+        
+        <div  class="row">
             <div style="width:100%; padding-bottom: -10px" class="song-header">
-                <div class="row">
+
+                <!-- Art and Title -->
+                <div *ngIf="song" class="row">
                     <div class="col-md-4" style="overflow:hidden">
                         <img [src]="getSongArt()" class="rounded" alt="song art" height="100px">
                     </div>
@@ -28,34 +21,43 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin-top:20px; margin-bottom: -20px; overflow:auto">
+                <div *ngIf="song" class="row" style="margin-top:20px; margin-bottom: -20px; overflow:auto">
                     <seek-bar [(seekVal)]="normalizedTime"></seek-bar>
+                </div>
+
+                <!-- No Song Selected -->
+                <div *ngIf="!song" class="row">
+                    <div class="col" style="text-align: center">
+                        <h3>Select a song to play</h3>
+                    </div>
                 </div>
             </div>
         </div>
         
         <!-- Volume and Controls -->
-        <div class="row" style="margin-top:20px;">
-            <div class="col-md-9">
-                <a *ngIf="!isPlaying" href="#" (click)="play(); isPlaying=true;" title="Play" class="control-item">
-                    <i class="fa fa-play-circle fa-3x" aria-hidden="true"></i>
-                </a>
-                <a *ngIf="isPlaying" href="#" (click)="pause(); isPlaying=false;" title="Pause" class="control-item">
-                    <i class="fa fa-pause fa-3x" aria-hidden="true"></i>
-                </a>
-                <a href="#" (click)="playNext()" title="Next Song" class="control-item">
-                    <i class="fa fa-step-forward fa-3x" aria-hidden="true"></i>
-                </a>
-                <a href="{{song.url}}" title="Download" class="control-item">
-                    <i class="fa fa-download fa-3x" aria-hidden="true"></i>
-                </a>
-                <a *ngIf="this.audio.volume > 0" title="Mute" href="#" (click)="updateVolume(0); volume = 0;" class="control-item">
-                    <i class="fa fa-volume-up fa-3x" aria-hidden="true"></i>
-                </a>
-                <a *ngIf="this.audio.volume === 0" title="Unmute" href="#" (click)="updateVolume(1); volume = 100;" class="control-item">
-                    <i class="fa fa-volume-up fa-3x" aria-hidden="true"></i>
-                </a>
-                <input style="width: 100px; padding-top:10px; padding-bottom:10px" type="range" #ref min="0" max="100" [(ngModel)]="volume" (change)="updateVolume(ref.value / 100)">
+        <div class="row control-row" style="margin-top: -20px">
+            <div class="col-9">
+                <div style="margin-bottom:10px; margin-top: 25px; min-height:30px">
+                    <a *ngIf="song && !isPlaying" (click)="play(); isPlaying=true;" title="Play" class="control-item">
+                        <i class="fa fa-play-circle fa-3x" aria-hidden="true"></i>
+                    </a>
+                    <a *ngIf="song && isPlaying" (click)="pause(); isPlaying=false;" title="Pause" class="control-item">
+                        <i class="fa fa-pause fa-3x" aria-hidden="true"></i>
+                    </a>
+                    <a *ngIf="song" (click)="playNext()" title="Next Song" class="control-item">
+                        <i class="fa fa-step-forward fa-3x" aria-hidden="true"></i>
+                    </a>
+                    <a *ngIf="song" href="{{song.url}}" title="Download" class="control-item">
+                        <i class="fa fa-download fa-3x" aria-hidden="true"></i>
+                    </a>
+                    <a *ngIf="song && this.audio.volume > 0" title="Mute" (click)="updateVolume(0); volume = 0;" class="control-item">
+                        <i class="fa fa-volume-up fa-3x" aria-hidden="true"></i>
+                    </a>
+                    <a *ngIf="song && this.audio.volume === 0" title="Unmute" (click)="updateVolume(1); volume = 100;" class="control-item">
+                        <i class="fa fa-volume-up fa-3x" aria-hidden="true"></i>
+                    </a>
+                    <input *ngIf="song" type="range" #ref min="0" max="100" [(ngModel)]="volume" (change)="updateVolume(ref.value / 100)" style="width: 100px; padding-top:10px; padding-bottom:10px">
+                </div>
             </div>
         </div>
 

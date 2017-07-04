@@ -19,6 +19,7 @@ export class SongPlayerComponent implements OnInit {
   private playCount: number = 0;
   private loading: boolean = false;
   private isPlaying: boolean = true;
+  private defaultArtUrl:string = 'https://vignette3.wikia.nocookie.net/starwars/images/6/68/Bith-GOI.jpg/revision/latest/scale-to-width-down/160?cb=20131206104539';
 
   // Audio controls
   private audio: any = {};
@@ -77,7 +78,6 @@ export class SongPlayerComponent implements OnInit {
   }
 
   updateVolume(newVolume:number): void {
-    console.log(newVolume);
     if (this.audio) {
       this.audio.volume = newVolume;
     } else {
@@ -98,7 +98,7 @@ export class SongPlayerComponent implements OnInit {
   }
 
   getSongArt(): string {
-      return this.song.artUrl || "https://vignette3.wikia.nocookie.net/starwars/images/6/68/Bith-GOI.jpg/revision/latest/scale-to-width-down/160?cb=20131206104539";
+      return this.song.artUrl || this.defaultArtUrl;
   }
 
   getSongPlayCount(songId:string): void {

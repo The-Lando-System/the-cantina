@@ -1,10 +1,19 @@
-.card {
+.now-playing {
     width:100%;
     overflow: auto;
     margin-bottom: 50px;
+    -webkit-box-shadow: 0px 29px 25px -14px #1e1e1e;
+    -moz-box-shadow: 0px 29px 25px -14px #1e1e1e;
+    box-shadow: 0px 29px 25px -14px #1e1e1e;
+    /*background-color: white;*/
+}
+
+.control-row {
+    background-color: #424242;
     -webkit-box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
     -moz-box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
     box-shadow: 0px 29px 25px -14px rgba(119,119,119,1);
+    border-radius:0px 0px 5px 5px;
 }
 
 audio {
@@ -20,11 +29,11 @@ i {
 }
 
 i.fa {
-    color: #3a3a3a!important;
+    color: white!important;
 }
 
 i.fa:hover {
-    color: black!important;
+    color: #dddddd!important;
 }
 
 .row {
@@ -44,13 +53,15 @@ a:hover {
 }
 
 .song-header {
-    -webkit-box-shadow:0px 0px 10px 0px #ababab ;
-    -moz-box-shadow:0px 0px 10px 0px #ababab ;
-    box-shadow:0px 0px 10px 0px #ababab ;
-    border-radius:10px;
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
+    /*-webkit-box-shadow:0px 0px 10px 0px #1e1e1e ;
+    -moz-box-shadow:0px 0px 10px 0px #1e1e1e ;
+    box-shadow:0px 0px 10px 0px #1e1e1e ;*/
+    -webkit-box-shadow: 0px 29px 25px -14px #1e1e1e;
+    -moz-box-shadow: 0px 29px 25px -14px #1e1e1e;
+    box-shadow: 0px 29px 25px -14px #1e1e1e;
+    border-radius:5px 5px 0px 0px;
     padding: 20px;
+    background-color: white;
 }
 
 .control-item {

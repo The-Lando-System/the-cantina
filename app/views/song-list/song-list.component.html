@@ -17,26 +17,26 @@
 
             <!-- User Actions -->
             <span *ngIf="!isUserAdmin() && i === hoveredSongIdx">
-                <a href="#" (click)="addSongToQueue(song)" title="Add Song to Queue" class="song-action-icon no-decor">
+                <a (click)="addSongToQueue(song)" title="Add Song to Queue" class="song-action-icon no-decor">
                     <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
                 </a>
-                <a href="#" (click)="playSong(song)" title="Play Song" class="song-action-icon no-decor">
+                <a (click)="playSong(song)" title="Play Song" class="song-action-icon no-decor">
                     <i class="fa fa-play-circle fa-2x" aria-hidden="true"></i>
                 </a>
             </span>
 
             <!-- Admin Actions -->
             <span *ngIf="isUserAdmin()">
-                <a *ngIf="!songFilter" href="#" (click)="moveUp(song)" class="song-action-icon no-decor">
+                <a *ngIf="!songFilter" (click)="moveUp(song)" class="song-action-icon no-decor">
                     <i class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
                 </a>
-                <a *ngIf="!songFilter" href="#" (click)="moveDown(song)" class="song-action-icon no-decor">
+                <a *ngIf="!songFilter" (click)="moveDown(song)" class="song-action-icon no-decor">
                     <i class="fa fa-arrow-down fa-2x" aria-hidden="true"></i>
                 </a>    
-                <a href="#" class="btn btn-outline-info song-action-icon" (click)="editSong(song)" data-toggle="modal" data-target="#songEditorModal">
+                <a class="btn btn-outline-info song-action-icon" (click)="editSong(song)" data-toggle="modal" data-target="#songEditorModal">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
-                <a href="#" class="btn btn-outline-danger song-action-icon" (click)="deleteSong(song)">
+                <a class="btn btn-outline-danger song-action-icon" (click)="deleteSong(song)">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
             </span>
