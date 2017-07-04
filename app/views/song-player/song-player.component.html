@@ -52,8 +52,8 @@
                 <a *ngIf="this.audio.volume > 0" title="Mute" href="#" (click)="updateVolume(0); volume = 0;" class="control-item">
                     <i class="fa fa-volume-up fa-3x" aria-hidden="true"></i>
                 </a>
-                <a *ngIf="this.audio.volume === 0" title="Unmute" href="#" (click)="updateVolume(1); volume = 100;" class="control-item" style="margin-right: 24px;">
-                    <i class="fa fa-volume-off fa-3x" aria-hidden="true"></i>
+                <a *ngIf="this.audio.volume === 0" title="Unmute" href="#" (click)="updateVolume(1); volume = 100;" class="control-item">
+                    <i class="fa fa-volume-up fa-3x" aria-hidden="true"></i>
                 </a>
                 <input style="width: 100px; padding-top:10px; padding-bottom:10px" type="range" #ref min="0" max="100" [(ngModel)]="volume" (change)="updateVolume(ref.value / 100)">
             </div>

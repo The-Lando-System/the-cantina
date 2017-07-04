@@ -1,49 +1,51 @@
 <input type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Search For Song" (keyup)="filter(songFilter)" [(ngModel)]="songFilter">
 <ul *ngIf="!loading" class="list-group">
-  <li on-mouseover="hoveredSongIdx = i" on-mouseleave="hoveredSongIdx = -1" *ngFor="let song of songsArr; let i=index" class="list-group-item justify-content-between" style="min-height: 60px;">
-    <span><strong>{{i+1}}. </strong>{{song.name}}</span>
-    <span *ngIf="!isUserAdmin()" class="badge">
-        <div *ngIf="i === hoveredSongIdx" class="row">
-            <div class="col">
-                <a href="#" (click)="addSongToQueue(song)" title="Add Song to Queue">
+  <li on-mouseover="hoveredSongIdx = i"
+      on-mouseleave="hoveredSongIdx = -1"
+      *ngFor="let song of songsArr; let i=index"
+      class="list-group-item justify-content-between"
+      style="width:100%; overflow: auto;">
+      <div style="min-width: 100%;">
+
+        <!-- Song Name -->
+        <div style="float:left; margin-bottom:10px;">
+            <span>
+                <strong>{{i+1}}. </strong>{{song.name}}
+            </span>
+        </div>
+        <div style="float:right">
+
+            <!-- User Actions -->
+            <span *ngIf="!isUserAdmin() && i === hoveredSongIdx">
+                <a href="#" (click)="addSongToQueue(song)" title="Add Song to Queue" class="song-action-icon no-decor">
                     <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
                 </a>
-            </div>
-            <div class="col">
-                <a href="#" (click)="playSong(song)" title="Play Song">
+                <a href="#" (click)="playSong(song)" title="Play Song" class="song-action-icon no-decor">
                     <i class="fa fa-play-circle fa-2x" aria-hidden="true"></i>
                 </a>
-            </div>
-        </div>
-    </span>
-    <span *ngIf="isUserAdmin()" class="badge">
-        <div class="row">
-            <div class="col" *ngIf="!songFilter">
-                <div class="row">
-                    <a href="#" (click)="moveUp(song)">
-                        <i class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
-                    </a>
-                </div>
-                <div class="row">
-                    <a href="#" (click)="moveDown(song)">
-                        <i class="fa fa-arrow-down fa-2x" aria-hidden="true"></i>
-                    </a>    
-                </div>
-            </div>
-            <div class="col">
-                <a href="#" class="btn btn-outline-info" (click)="editSong(song)" data-toggle="modal" data-target="#songEditorModal">
+            </span>
+
+            <!-- Admin Actions -->
+            <span *ngIf="isUserAdmin()">
+                <a *ngIf="!songFilter" href="#" (click)="moveUp(song)" class="song-action-icon no-decor">
+                    <i class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
+                </a>
+                <a *ngIf="!songFilter" href="#" (click)="moveDown(song)" class="song-action-icon no-decor">
+                    <i class="fa fa-arrow-down fa-2x" aria-hidden="true"></i>
+                </a>    
+                <a href="#" class="btn btn-outline-info song-action-icon" (click)="editSong(song)" data-toggle="modal" data-target="#songEditorModal">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
-            </div>
-            <div class="col">
-                <a href="#" class="btn btn-outline-danger" (click)="deleteSong(song)">
+                <a href="#" class="btn btn-outline-danger song-action-icon" (click)="deleteSong(song)">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
-            </div>
+            </span>
         </div>
-    </span>
+      </div>
   </li>
 </ul>
+
+<!-- Song Order Saving -->
 <button *ngIf="isUserAdmin()" type="button" style="margin-top:10px;" (click)="saveSongOrder()" class="btn btn-secondary">Save Song Order</button>
 <div *ngIf="isUserAdmin() && orderMessage" style="margin-top:10px;" class="alert alert-success alert-dismissible fade show" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">

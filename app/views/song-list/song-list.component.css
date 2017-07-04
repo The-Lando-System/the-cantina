@@ -1,3 +1,19 @@
 .list-group-item:hover {
     background-color: #f4f4f4;
 }
+
+.no-decor {
+    text-decoration: none;
+}
+
+.no-decor:hover {
+    text-decoration: none;
+}
+
+.no-decor:visited {
+    text-decoration: none;
+}
+
+.song-action-icon {
+    margin-left: 10px;
+}
