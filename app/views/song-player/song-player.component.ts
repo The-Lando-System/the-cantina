@@ -87,14 +87,34 @@ export class SongPlayerComponent implements OnInit {
 
   play(): void {
     this.audio.play();
+    this.isPlaying = true;
   }
 
   pause(): void {
     this.audio.pause();
+    this.isPlaying = false;
   }
 
   playNext(): void {
+    this.isPlaying = false;
     this.songQueueSvc.playNextSong(this.song);
+  }
+
+  seek(seconds:number): void {
+    let seekTime = this.audio.currentTime + seconds;
+    if (seekTime < 0) {
+      this.audio.currentTime = 0;
+      this.play();
+      return;
+    }
+    if (seekTime > this.audio.duration) {
+      this.audio.currentTime = this.audio.duration;
+      return;
+    }
+
+    this.audio.currentTime = seekTime;
+    this.play();
+    return;
   }
 
   getSongArt(): string {
