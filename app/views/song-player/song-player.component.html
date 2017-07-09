@@ -35,9 +35,9 @@
         </div>
         
         <!-- Volume and Controls -->
-        <div class="row control-row" style="margin-top: -20px">
+        <div class="row control-row" [ngClass]="maxClass">
             <div class="col">
-                <div style="margin-bottom:10px; margin-top: 25px; min-height:30px">
+                <div *ngIf="maxClass === 'maximized'" style="margin-bottom:10px; margin-top: 25px; min-height:30px">
                     <a *ngIf="song && !isPlaying" (click)="play()" title="Play" class="control-item">
                         <i class="fa fa-play-circle fa-3x" aria-hidden="true"></i>
                     </a>
@@ -66,6 +66,14 @@
                         <input *ngIf="song" type="range" #ref min="0" max="100" [(ngModel)]="volume" (change)="updateVolume(ref.value / 100)" style="width: 80px; padding-top:10px; padding-bottom:10px">
                     </div>
                 </div>
+            </div>
+            <div *ngIf="song" style="margin-right:10px; margin-top:10px">
+                <a *ngIf="maxClass === 'maximized'" (click)="maxClass = 'minimized'">
+                    <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                </a>
+                <a *ngIf="maxClass === 'minimized'" (click)="maxClass = 'maximized'">
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                </a>
             </div>
         </div>
 

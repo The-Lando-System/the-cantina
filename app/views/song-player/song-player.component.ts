@@ -20,6 +20,7 @@ export class SongPlayerComponent implements OnInit {
   private loading: boolean = false;
   private isPlaying: boolean = true;
   private defaultArtUrl:string = 'https://vignette3.wikia.nocookie.net/starwars/images/6/68/Bith-GOI.jpg/revision/latest/scale-to-width-down/160?cb=20131206104539';
+  private maxClass: string = 'maximized';
 
   // Audio controls
   private audio: any = {};

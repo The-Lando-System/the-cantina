@@ -5,7 +5,6 @@
     -webkit-box-shadow: 0px 29px 25px -14px #1e1e1e;
     -moz-box-shadow: 0px 29px 25px -14px #1e1e1e;
     box-shadow: 0px 29px 25px -14px #1e1e1e;
-    /*background-color: white;*/
 }
 
 .control-row {
@@ -53,9 +52,6 @@ a:hover {
 }
 
 .song-header {
-    /*-webkit-box-shadow:0px 0px 10px 0px #1e1e1e ;
-    -moz-box-shadow:0px 0px 10px 0px #1e1e1e ;
-    box-shadow:0px 0px 10px 0px #1e1e1e ;*/
     -webkit-box-shadow: 0px 29px 25px -14px #1e1e1e;
     -moz-box-shadow: 0px 29px 25px -14px #1e1e1e;
     box-shadow: 0px 29px 25px -14px #1e1e1e;
@@ -66,4 +62,13 @@ a:hover {
 
 .control-item {
     margin-left: 20px;
+}
+
+.minimized {
+    max-height: 50px;
+    margin-top: -20px;
+}
+
+.maximized {
+    margin-top: -20px;
 }
