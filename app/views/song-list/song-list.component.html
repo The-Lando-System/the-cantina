@@ -1,4 +1,3 @@
-<input type="text" class="form-control" style="margin-bottom: 5px;" placeholder="Search For Song" (keyup)="filter(songFilter)" [(ngModel)]="songFilter">
 <ul *ngIf="!loading" class="list-group">
   <li on-mouseover="hoveredSongIdx = i"
       on-mouseleave="hoveredSongIdx = -1"
@@ -44,6 +43,7 @@
       </div>
   </li>
 </ul>
+<input type="text" class="form-control" style="margin-top: 5px;" placeholder="Search For Song" (keyup)="filter(songFilter)" [(ngModel)]="songFilter">
 
 <!-- Song Order Saving -->
 <button *ngIf="isUserAdmin()" type="button" style="margin-top:10px;" (click)="saveSongOrder()" class="btn btn-secondary">Save Song Order</button>

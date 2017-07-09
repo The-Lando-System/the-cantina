@@ -72,3 +72,7 @@ a:hover {
 .maximized {
     margin-top: -20px;
 }
+
+.green {
+    color: greenyellow;
+}

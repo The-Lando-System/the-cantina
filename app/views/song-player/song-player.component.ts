@@ -21,6 +21,9 @@ export class SongPlayerComponent implements OnInit {
   private isPlaying: boolean = true;
   private defaultArtUrl:string = 'https://vignette3.wikia.nocookie.net/starwars/images/6/68/Bith-GOI.jpg/revision/latest/scale-to-width-down/160?cb=20131206104539';
   private maxClass: string = 'maximized';
+  private songs: Song[];
+  private shuffleEnabled: boolean = false;
+  private shuffleCss: string = '';
 
   // Audio controls
   private audio: any = {};
@@ -36,7 +39,15 @@ export class SongPlayerComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.returnUser().then((user:User) => {}).catch((err:any) => {});
+    this.getAllSongs();
     this.listenForSongToPlay();
+  }
+
+  getAllSongs(): void {
+    this.songSvc.getSongs()
+    .then((songs:Song[]) => {
+      this.songs = songs;
+    }).catch((err:any) => {});
   }
 
   getSongUrl(): string {
@@ -97,8 +108,17 @@ export class SongPlayerComponent implements OnInit {
   }
 
   playNext(): void {
-    this.isPlaying = false;
-    this.songQueueSvc.playNextSong(this.song);
+
+    if (this.songQueueSvc.getSongsInQueue().length === 0 && this.shuffleEnabled) {
+      this.audio.pause();
+      this.audio.currentTime = 0;
+      this.shufflePlay();
+    }
+
+    if (this.songQueueSvc.getSongsInQueue().length > 0) {
+      this.isPlaying = false;
+      this.songQueueSvc.playNextSong(this.song);
+    }
   }
 
   seek(seconds:number): void {
@@ -116,6 +136,31 @@ export class SongPlayerComponent implements OnInit {
     this.audio.currentTime = seekTime;
     this.play();
     return;
+  }
+
+  enableShuffle(): void {
+    this.shuffleEnabled = true;
+    this.shufflePlay();
+  }
+
+  disableShuffle(): void {
+    this.shuffleEnabled = false;
+  }
+
+  shufflePlay(): void {
+    if (!this.audio || this.audio.currentTime === this.audio.duration || this.audio.currentTime === 0) {
+      this.songQueueSvc.playSong(this.getRandomSong());
+    }
+  }
+
+  getRandomSong(): Song {
+    return this.songs[this.getRandomInt(0,this.songs.length)];
+  }
+
+  getRandomInt(min:number, max:number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
   }
 
   getSongArt(): string {

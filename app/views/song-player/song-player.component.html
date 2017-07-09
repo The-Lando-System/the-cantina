@@ -27,7 +27,7 @@
 
                 <!-- No Song Selected -->
                 <div *ngIf="!song" class="row">
-                    <div class="col" style="text-align: center">
+                    <div class="col" style="text-align: left">
                         <h3>Select a song to play</h3>
                     </div>
                 </div>
@@ -55,6 +55,12 @@
                     </a>
                     <a *ngIf="song" href="{{song.url}}" title="Download" class="control-item">
                         <i class="fa fa-download fa-3x" aria-hidden="true"></i>
+                    </a>
+                    <a *ngIf="!shuffleEnabled" (click)="enableShuffle()" title="Enable Shuffle Play" class="control-item">
+                        <i class="fa fa-random fa-3x" aria-hidden="true"></i>
+                    </a>
+                    <a *ngIf="shuffleEnabled" (click)="disableShuffle()" title="Disable Shuffle Play" class="control-item">
+                        <i class="fa fa-random fa-3x" style="color: greenyellow!important" aria-hidden="true"></i>
                     </a>
                     <div>
                         <a *ngIf="song && this.audio.volume > 0" title="Mute" (click)="updateVolume(0); volume = 0;" class="control-item">
